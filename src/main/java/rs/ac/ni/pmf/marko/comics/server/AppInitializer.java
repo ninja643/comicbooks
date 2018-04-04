@@ -8,6 +8,8 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import rs.ac.ni.pmf.marko.comics.server.config.ApplicationConfiguration;
+
 public class AppInitializer implements WebApplicationInitializer
 {
 
@@ -15,7 +17,7 @@ public class AppInitializer implements WebApplicationInitializer
 	public void onStartup(ServletContext servletContext) throws ServletException
 	{
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		// context.register(ApplicationConfiguration.class);
+		context.register(ApplicationConfiguration.class);
 
 		ServletRegistration.Dynamic registration = servletContext.addServlet("dispatcher",
 				new DispatcherServlet(context));
