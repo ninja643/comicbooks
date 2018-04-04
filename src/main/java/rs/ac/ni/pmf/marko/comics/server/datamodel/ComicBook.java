@@ -20,12 +20,18 @@ public class ComicBook
 	@Id
 	private int id;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	private Publisher publisher;
-
-	@OneToMany
-	private List<Hero> heroes;
-
+	@Column
+	private int number;
+	
+	@Column
+	private String title;
+	
 	@Column
 	private String frontPageUrl;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	private Publisher publisher;
+	
+	@OneToMany
+	private List<Hero> heroes;
 }
