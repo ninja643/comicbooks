@@ -23,4 +23,10 @@ public class ComicBooksRestService
 	{
 		return dataProvider.getAllComicBooks();
 	}
+	
+	@RequestMapping(value = "/single", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+	public ComicBook getSingleComicBook()
+	{
+		return dataProvider.getAllComicBooks().get(0);
+	}	
 }
