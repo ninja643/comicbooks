@@ -22,7 +22,7 @@ public class AppInitializer implements WebApplicationInitializer
 		ServletRegistration.Dynamic registration = servletContext.addServlet("dispatcher",
 				new DispatcherServlet(context));
 		registration.setLoadOnStartup(1);
-		registration.addMapping("/rest/*");
+		registration.addMapping("/services/rest/*");
 	}
 
 }

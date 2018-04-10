@@ -18,7 +18,7 @@ public class ComicBooksRestService
 	@Autowired
 	private DataProvider dataProvider;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<ComicBook> getAllComicBooks()
 	{
 		return dataProvider.getAllComicBooks();
