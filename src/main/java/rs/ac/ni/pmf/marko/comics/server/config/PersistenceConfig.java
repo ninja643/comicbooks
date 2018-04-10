@@ -20,7 +20,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = { "rs.ac.ni.pmf.marko.comics.server.datamodel" })
+@EnableJpaRepositories(basePackages = { "rs.ac.ni.pmf.marko.comics.server.datamodel", "rs.ac.ni.pmf.marko.comics.server.jpa" })
 @PropertySource(value = "classpath:/application.properties")
 public class PersistenceConfig
 {
