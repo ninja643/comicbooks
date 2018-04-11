@@ -17,7 +17,7 @@ public class ApplicationConfiguration
 	@Bean
 	public DataProvider getDataProvider()
 	{
-		return new DataProviderStub();
-//		return new DbDataProvider();
+//		return new DataProviderStub();
+		return new DbDataProvider();
 	}
 }

@@ -92,11 +92,19 @@
 		</dependency>
 
 		<!-- Database (H2) -->
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.4.197</version>
+		</dependency> -->
+
+		<!-- Database (MySQL) -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>6.0.6</version>
 		</dependency>
+
 
 		<!-- DataSource (HikariCP) -->
 		<dependency>
