@@ -38,6 +38,6 @@ public class ComicBook
 	@OneToOne(fetch = FetchType.EAGER)
 	private Publisher publisher;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Hero> heroes;
 }
