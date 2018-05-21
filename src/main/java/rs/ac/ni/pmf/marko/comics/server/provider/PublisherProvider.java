@@ -1,6 +1,5 @@
 package rs.ac.ni.pmf.marko.comics.server.provider;
 
-import java.util.Optional;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.Publisher;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
@@ -9,11 +8,11 @@ public interface PublisherProvider
 {
 	Iterable<Publisher> getAll();
 
-	Optional<Publisher> get(int id);
+	Publisher get(long id) throws ResourceNotFoundException;
 
 	Publisher add(Publisher publisher) throws DuplicateResourceException;
 
-	Publisher update(int id, Publisher publisher) throws ResourceNotFoundException, DuplicateResourceException;
+	Publisher update(long id, Publisher publisher) throws ResourceNotFoundException, DuplicateResourceException;
 
-	void delete(int id) throws ResourceNotFoundException;
+	void delete(long id) throws ResourceNotFoundException;
 }

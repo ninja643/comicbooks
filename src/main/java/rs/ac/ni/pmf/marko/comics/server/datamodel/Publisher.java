@@ -25,12 +25,12 @@ public class Publisher
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	@Version
 	private int version;
 
-	@Column(name = "name", length = 200, nullable = false)
+	@Column(name = "name", length = 200, nullable = false, unique = true)
 	private String name;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")

@@ -1,6 +1,5 @@
 package rs.ac.ni.pmf.marko.comics.server.rest;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,7 @@ public class ComicBooksRestService
 	private ComicBookProvider dataProvider;
 
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<ComicBook> getAllComicBooks()
+	public Iterable<ComicBook> getAllComicBooks()
 	{
 		return dataProvider.getAllComicBooks();
 	}

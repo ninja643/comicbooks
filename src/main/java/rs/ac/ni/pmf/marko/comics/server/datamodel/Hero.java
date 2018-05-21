@@ -25,7 +25,7 @@ public class Hero
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	@Version
 	private int version;

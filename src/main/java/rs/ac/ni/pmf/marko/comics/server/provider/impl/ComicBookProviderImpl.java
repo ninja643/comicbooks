@@ -6,7 +6,7 @@ import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBook;
 import rs.ac.ni.pmf.marko.comics.server.jpa.ComicBooksRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 
-public class DatabaseComicBookProvider implements ComicBookProvider
+public class ComicBookProviderImpl implements ComicBookProvider
 {
 	@Autowired
 	private ComicBooksRepository _comicBooksRepository;

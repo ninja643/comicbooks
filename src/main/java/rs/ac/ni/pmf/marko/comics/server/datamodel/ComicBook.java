@@ -24,13 +24,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(
 	uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "number", "publisher" })
+		@UniqueConstraint(columnNames = { "number", "publisher_id" })
 	})
 public class ComicBook
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	@Version
 	private int version;
