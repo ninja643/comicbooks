@@ -5,8 +5,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import rs.ac.ni.pmf.marko.comics.server.provider.DataProvider;
-import rs.ac.ni.pmf.marko.comics.server.provider.impl.DbDataProvider;
+import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
+import rs.ac.ni.pmf.marko.comics.server.provider.impl.DatabaseComicBookProvider;
 
 @Configuration
 @ComponentScan(basePackages = "rs.ac.ni.pmf.marko.comics.server")
@@ -14,8 +14,8 @@ import rs.ac.ni.pmf.marko.comics.server.provider.impl.DbDataProvider;
 public class ApplicationConfiguration
 {
 	@Bean
-	public DataProvider getDataProvider()
+	public ComicBookProvider getDataProvider()
 	{
-		return new DbDataProvider();
+		return new DatabaseComicBookProvider();
 	}
 }
