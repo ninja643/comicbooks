@@ -8,8 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
+@Table(
+	uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "number", "publisher" })
+	})
 public class ComicBook
 {
 	@Id
@@ -40,7 +44,7 @@ public class ComicBook
 	@Column
 	private String frontPageUrl;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Publisher publisher;
 
 	@ManyToMany(fetch = FetchType.EAGER)
