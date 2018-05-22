@@ -33,6 +33,6 @@ public class Publisher
 	@Column(name = "name", length = 200, nullable = false, unique = true)
 	private String name;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "publisher")
 	private Set<ComicBook> comicBooks;
 }
