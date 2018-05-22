@@ -1,6 +1,7 @@
 package rs.ac.ni.pmf.marko.comics.server.provider.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.Publisher;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
@@ -28,7 +29,14 @@ public class PublisherProviderImpl implements PublisherProvider
 	@Override
 	public Publisher add(Publisher publisher) throws DuplicateResourceException
 	{
-		return _publisherRepository.save(publisher);
+		try
+		{
+			return _publisherRepository.save(publisher);
+		}
+		catch (DataIntegrityViolationException e)
+		{
+			throw new DuplicateResourceException(ResourceType.PUBLISHER, "Publisger '" + publisher.getName() + "' already exists");
+		}
 	}
 
 	@Override
