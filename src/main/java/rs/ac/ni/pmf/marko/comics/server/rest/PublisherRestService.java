@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.Publisher;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.provider.PublisherProvider;
@@ -23,13 +23,13 @@ public class PublisherRestService
 	private PublisherProvider _publisherProvider;
 
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Iterable<Publisher> getAll()
+	public Iterable<PublisherEntity> getAll()
 	{
 		return _publisherProvider.getAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Publisher getById(@RequestParam(name = "id") long id) throws ResourceNotFoundException
+	public PublisherEntity getById(@RequestParam(name = "id") long id) throws ResourceNotFoundException
 	{
 		return _publisherProvider.get(id);
 	}
@@ -39,7 +39,7 @@ public class PublisherRestService
 		method = RequestMethod.POST,
 		produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
 		consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Publisher add(@ApiParam(value = "Publisher to add", required = true) @RequestBody Publisher publisher)
+	public PublisherEntity add(@ApiParam(value = "Publisher to add", required = true) @RequestBody PublisherEntity publisher)
 		throws DuplicateResourceException
 	{
 		return _publisherProvider.add(publisher);

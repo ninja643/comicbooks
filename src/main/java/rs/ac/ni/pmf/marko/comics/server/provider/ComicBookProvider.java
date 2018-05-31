@@ -1,10 +1,10 @@
 package rs.ac.ni.pmf.marko.comics.server.provider;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBook;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
 
 public interface ComicBookProvider
 {
-	public Iterable<ComicBook> getAllComicBooks();
+	public Iterable<ComicBookEntity> getAllComicBooks();
 
-	public ComicBook addComicBook(ComicBook comicBook);
+	public ComicBookEntity addComicBook(ComicBookEntity comicBook);
 }

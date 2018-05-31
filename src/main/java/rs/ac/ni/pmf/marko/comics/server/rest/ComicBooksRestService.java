@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBook;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
 import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 
 @RestController
@@ -20,7 +20,7 @@ public class ComicBooksRestService
 	private ComicBookProvider dataProvider;
 
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Iterable<ComicBook> getAllComicBooks()
+	public Iterable<ComicBookEntity> getAllComicBooks()
 	{
 		return dataProvider.getAllComicBooks();
 	}
@@ -30,7 +30,7 @@ public class ComicBooksRestService
 		method = RequestMethod.POST,
 		produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
 		consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBook addComicBook(@ApiParam(required = true) @RequestBody ComicBook comicBook)
+	public ComicBookEntity addComicBook(@ApiParam(required = true) @RequestBody ComicBookEntity comicBook)
 	{
 		return dataProvider.addComicBook(comicBook);
 	}

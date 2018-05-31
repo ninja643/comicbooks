@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBook;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
 
 @Repository
-public interface ComicBooksRepository extends CrudRepository<ComicBook, Long> 
+public interface ComicBooksRepository extends CrudRepository<ComicBookEntity, Long> 
 {
-	List<ComicBook> findAll();
+	List<ComicBookEntity> findAll();
 }
