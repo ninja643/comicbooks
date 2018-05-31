@@ -3,7 +3,6 @@ package rs.ac.ni.pmf.marko.comics.server.datamodel;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +32,6 @@ public class Publisher
 	@Column(name = "name", length = 200, nullable = false, unique = true)
 	private String name;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "publisher")
+	@OneToMany(mappedBy = "publisher")
 	private Set<ComicBook> comicBooks;
 }

@@ -3,7 +3,6 @@ package rs.ac.ni.pmf.marko.comics.server.datamodel;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +32,6 @@ public class Hero
 	@Column
 	private String name;
 
-	@ManyToMany(mappedBy = "heroes", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "heroes")
 	private List<ComicBook> comicBooks;
 }
