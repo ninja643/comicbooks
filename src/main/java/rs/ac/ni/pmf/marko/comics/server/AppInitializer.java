@@ -14,12 +14,12 @@ public class AppInitializer implements WebApplicationInitializer
 {
 
 	@Override
-	public void onStartup(ServletContext servletContext) throws ServletException
+	public void onStartup(final ServletContext servletContext) throws ServletException
 	{
-		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+		final AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.register(ApplicationConfiguration.class);
 
-		ServletRegistration.Dynamic registration = servletContext.addServlet("dispatcher",
+		final ServletRegistration.Dynamic registration = servletContext.addServlet("dispatcher",
 				new DispatcherServlet(context));
 		registration.setLoadOnStartup(1);
 		registration.addMapping("/services/rest/*");

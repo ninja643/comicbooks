@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
 
 @Repository
-public interface ComicBooksRepository extends CrudRepository<ComicBookEntity, Long> 
+public interface ComicBooksRepository extends CrudRepository<ComicBookEntity, Long>
 {
+	@Override
 	List<ComicBookEntity> findAll();
 }

@@ -6,10 +6,9 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 
 public enum ErrorId
 {
-	PUBLISHER_ALREADY_EXISTS,
-	PUBLISHER_NOT_FOUND;
+	PUBLISHER_ALREADY_EXISTS, PUBLISHER_NOT_FOUND;
 
-	public static ErrorId from(AbstractResourceException e)
+	public static ErrorId from(final AbstractResourceException e)
 	{
 		if (e instanceof ResourceNotFoundException)
 		{

@@ -12,7 +12,8 @@ public interface PublisherProvider
 
 	PublisherEntity add(PublisherEntity publisher) throws DuplicateResourceException;
 
-	PublisherEntity update(long id, PublisherEntity publisher) throws ResourceNotFoundException, DuplicateResourceException;
+	PublisherEntity update(long id, PublisherEntity publisher)
+			throws ResourceNotFoundException, DuplicateResourceException;
 
 	void delete(long id) throws ResourceNotFoundException;
 }

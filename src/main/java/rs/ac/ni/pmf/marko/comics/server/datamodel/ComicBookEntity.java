@@ -1,6 +1,7 @@
 package rs.ac.ni.pmf.marko.comics.server.datamodel;
 
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,10 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(
-	uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "number", "publisher_id" })
-	})
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "number", "publisher_id" }) })
 public class ComicBookEntity
 {
 	@Id

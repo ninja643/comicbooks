@@ -9,7 +9,7 @@ public class PublisherDTO
 	long id;
 	String name;
 
-	public static PublisherDTO fromEntiry(PublisherEntity publisherEntity)
+	public static PublisherDTO fromEntiry(final PublisherEntity publisherEntity)
 	{
 		return new PublisherDTO(publisherEntity.getId(), publisherEntity.getName());
 	}

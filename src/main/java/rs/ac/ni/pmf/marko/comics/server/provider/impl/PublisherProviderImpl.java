@@ -2,6 +2,7 @@ package rs.ac.ni.pmf.marko.comics.server.provider.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+
 import rs.ac.ni.pmf.marko.comics.server.datamodel.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
@@ -21,26 +22,28 @@ public class PublisherProviderImpl implements PublisherProvider
 	}
 
 	@Override
-	public PublisherEntity get(long id) throws ResourceNotFoundException
+	public PublisherEntity get(final long id) throws ResourceNotFoundException
 	{
-		return _publisherRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER, ""));
+		return _publisherRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER, ""));
 	}
 
 	@Override
-	public PublisherEntity add(PublisherEntity publisher) throws DuplicateResourceException
+	public PublisherEntity add(final PublisherEntity publisher) throws DuplicateResourceException
 	{
 		try
 		{
 			return _publisherRepository.save(publisher);
-		}
-		catch (DataIntegrityViolationException e)
+		} catch (final DataIntegrityViolationException e)
 		{
-			throw new DuplicateResourceException(ResourceType.PUBLISHER, "Publisger '" + publisher.getName() + "' already exists");
+			throw new DuplicateResourceException(ResourceType.PUBLISHER,
+					"Publisger '" + publisher.getName() + "' already exists");
 		}
 	}
 
 	@Override
-	public PublisherEntity update(long id, PublisherEntity publisher) throws ResourceNotFoundException, DuplicateResourceException
+	public PublisherEntity update(final long id, final PublisherEntity publisher)
+			throws ResourceNotFoundException, DuplicateResourceException
 	{
 		throwIfUnknownId(id);
 
@@ -50,14 +53,14 @@ public class PublisherProviderImpl implements PublisherProvider
 	}
 
 	@Override
-	public void delete(long id) throws ResourceNotFoundException
+	public void delete(final long id) throws ResourceNotFoundException
 	{
 		throwIfUnknownId(id);
 
 		_publisherRepository.deleteById(id);
 	}
 
-	private void throwIfUnknownId(long id) throws ResourceNotFoundException
+	private void throwIfUnknownId(final long id) throws ResourceNotFoundException
 	{
 		if (!_publisherRepository.existsById(id))
 		{
