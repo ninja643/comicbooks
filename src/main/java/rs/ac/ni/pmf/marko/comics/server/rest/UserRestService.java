@@ -9,46 +9,53 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.UserEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
-import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
+import rs.ac.ni.pmf.marko.comics.server.provider.UserProvider;
 
 @RestController
 @Api
-@RequestMapping("/comicbook")
-public class ComicBooksRestService
-{
-	@Autowired
-	private ComicBookProvider dataProvider;
+@RequestMapping(value = "/user")
+public class UserRestService {
 
+	@Autowired
+	UserProvider dataProvider;
+	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Iterable<ComicBookEntity> getAll()
+	public Iterable<UserEntity> getAll()
 	{
 		return dataProvider.getAll();
 	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity getById(@RequestParam(name = "id") Long id) throws ResourceNotFoundException
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public UserEntity getById(@RequestParam(name = "id") Long id) throws ResourceNotFoundException
 	{
-			return dataProvider.get(id);
+		return dataProvider.get(id);
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity add(@ApiParam(required = true) @RequestBody final ComicBookEntity comicBook)
+	public UserEntity add(@RequestBody UserEntity user)
 	{
-		return dataProvider.add(comicBook);
+		return dataProvider.add(user);
 	}
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity update(@RequestParam(name = "id")Long id, @RequestBody ComicBookEntity comicBookEntity) 
+	public UserEntity update(@RequestParam(name = "id")Long id, @RequestBody UserEntity userEntity)
 	{
-		return dataProvider.update(id, comicBookEntity);
+		return dataProvider.updateUser(id, userEntity);
+	}
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public void delete(@RequestParam(name = "id")Long id) throws ResourceNotFoundException
+	{
+		dataProvider.deleteUser(id);
 	}
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public void delete(@RequestParam(name = "id")Long id) throws ResourceNotFoundException 
-	{
-		dataProvider.deleteComicBook(id);
-	}
 }
+
+
+
+
+
+
+

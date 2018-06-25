@@ -6,14 +6,14 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 
 public interface PublisherProvider
 {
-	Iterable<PublisherEntity> getAll();
+	public Iterable<PublisherEntity> getAll();
 
-	PublisherEntity get(long id) throws ResourceNotFoundException;
+	public PublisherEntity get(final Long id) throws ResourceNotFoundException;
 
-	PublisherEntity add(PublisherEntity publisher) throws DuplicateResourceException;
+	public PublisherEntity add(PublisherEntity publisher) throws DuplicateResourceException;
 
-	PublisherEntity update(long id, PublisherEntity publisher)
+	public PublisherEntity update(final Long id, PublisherEntity publisher)
 			throws ResourceNotFoundException, DuplicateResourceException;
 
-	void delete(long id) throws ResourceNotFoundException;
+	public void delete(final Long id) throws ResourceNotFoundException;
 }

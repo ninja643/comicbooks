@@ -1,4 +1,3 @@
-package rs.ac.ni.pmf.marko.comics.server.datamodel;
 
 import java.util.List;
 
@@ -15,19 +14,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
 @XmlRootElement
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table
+@Data
 public class HeroEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 
 	@Version
 	private int version;

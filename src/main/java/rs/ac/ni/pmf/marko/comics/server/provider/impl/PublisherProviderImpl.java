@@ -22,7 +22,7 @@ public class PublisherProviderImpl implements PublisherProvider
 	}
 
 	@Override
-	public PublisherEntity get(final long id) throws ResourceNotFoundException
+	public PublisherEntity get(final Long id) throws ResourceNotFoundException
 	{
 		return _publisherRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER, ""));
@@ -42,7 +42,7 @@ public class PublisherProviderImpl implements PublisherProvider
 	}
 
 	@Override
-	public PublisherEntity update(final long id, final PublisherEntity publisher)
+	public PublisherEntity update(final Long id, final PublisherEntity publisher)
 			throws ResourceNotFoundException, DuplicateResourceException
 	{
 		throwIfUnknownId(id);
@@ -53,7 +53,7 @@ public class PublisherProviderImpl implements PublisherProvider
 	}
 
 	@Override
-	public void delete(final long id) throws ResourceNotFoundException
+	public void delete(final Long id) throws ResourceNotFoundException
 	{
 		throwIfUnknownId(id);
 

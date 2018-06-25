@@ -43,9 +43,26 @@ public class PublisherRestService
 		return _publisherProvider.add(publisher);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public void delete(@RequestParam(name = "id") final long id) throws ResourceNotFoundException
 	{
 		_publisherProvider.delete(id);
 	}
+	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, 
+			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE) 
+	public PublisherEntity update(@RequestParam(name = "id") Long id, @RequestBody PublisherEntity publisherEntity) throws ResourceNotFoundException, DuplicateResourceException 
+	{
+		return _publisherProvider.update(id,publisherEntity);
+	}
 }
+
+
+
+
+
+
+
+
+
+

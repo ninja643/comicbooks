@@ -9,46 +9,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.HeroEntity;
+import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
-import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
+import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
 
 @RestController
 @Api
-@RequestMapping("/comicbook")
-public class ComicBooksRestService
-{
-	@Autowired
-	private ComicBookProvider dataProvider;
+@RequestMapping(value="/hero")
+public class HeroRestService {
 
-	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Iterable<ComicBookEntity> getAll()
+	@Autowired
+	HeroProvider dataProvider;
+	
+	@RequestMapping(value = "",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Iterable<HeroEntity> getAll()
 	{
 		return dataProvider.getAll();
 	}
-
+		
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity getById(@RequestParam(name = "id") Long id) throws ResourceNotFoundException
+	public HeroEntity getById(@RequestParam(name = "id") Long id) throws ResourceNotFoundException 
 	{
-			return dataProvider.get(id);
+		return dataProvider.get(id);
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity add(@ApiParam(required = true) @RequestBody final ComicBookEntity comicBook)
+	public HeroEntity add(@RequestBody HeroEntity heroEntity) throws DuplicateResourceException
 	{
-		return dataProvider.add(comicBook);
+		return dataProvider.add(heroEntity);
 	}
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity update(@RequestParam(name = "id")Long id, @RequestBody ComicBookEntity comicBookEntity) 
+	public HeroEntity update(@RequestParam(name = "id") Long id, @RequestBody HeroEntity heroEntity)
 	{
-		return dataProvider.update(id, comicBookEntity);
+		return dataProvider.update(id, heroEntity);
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public void delete(@RequestParam(name = "id")Long id) throws ResourceNotFoundException 
+	public void delete(@RequestParam(name = "id")Long id) throws ResourceNotFoundException
 	{
-		dataProvider.deleteComicBook(id);
+			dataProvider.delete(id);
 	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

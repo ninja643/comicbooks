@@ -1,40 +1,39 @@
-package rs.ac.ni.pmf.marko.comics.server.datamodel;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
 @XmlRootElement
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table
-public class HeroEntity
+public class PublisherEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 
 	@Version
 	private int version;
 
-	@Column
+	@Column(name = "name", length = 200, nullable = false, unique = true)
 	private String name;
 
-	@ManyToMany(mappedBy = "heroes")
-	private List<ComicBookEntity> comicBooks;
+	@OneToMany(mappedBy = "publisher")
+	private Set<ComicBookEntity> comicBooks;
 }
