@@ -41,7 +41,7 @@ public class HeroRestService {
 	}
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HeroEntity update(@RequestParam(name = "id") Long id, @RequestBody HeroEntity heroEntity)
+	public HeroEntity update(@RequestParam(name = "id") Long id, @RequestBody HeroEntity heroEntity) throws ResourceNotFoundException
 	{
 		return dataProvider.update(id, heroEntity);
 	}

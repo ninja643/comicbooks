@@ -30,7 +30,7 @@ public class UserProviderImpl implements UserProvider {
 	}
 
 	@Override
-	public UserEntity add(UserEntity user) 
+	public UserEntity add(UserEntity user) throws DuplicateResourceException
 	{
 		try 
 		{
@@ -38,12 +38,12 @@ public class UserProviderImpl implements UserProvider {
 		}catch(final DataIntegrityViolationException e)
 		{
 			throw new DuplicateResourceException(ResourceType.USER, 
-					"User "+user.getName()+" already exists");
+					"User "+user.getFirstName()+" already exists");
 		}
 	}
 
 	@Override
-	public UserEntity updateUser(Long id, UserEntity userEntity) 
+	public UserEntity updateUser(Long id, UserEntity userEntity) throws ResourceNotFoundException
 	{
 		throwIfUnknownId(id);
 		

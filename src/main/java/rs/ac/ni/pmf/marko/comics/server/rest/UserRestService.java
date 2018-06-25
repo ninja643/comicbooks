@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.UserEntity;
+import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.provider.UserProvider;
 
@@ -34,13 +35,13 @@ public class UserRestService {
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public UserEntity add(@RequestBody UserEntity user)
+	public UserEntity add(@RequestBody UserEntity user) throws DuplicateResourceException
 	{
 		return dataProvider.add(user);
 	}
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public UserEntity update(@RequestParam(name = "id")Long id, @RequestBody UserEntity userEntity)
+	public UserEntity update(@RequestParam(name = "id")Long id, @RequestBody UserEntity userEntity) throws ResourceNotFoundException
 	{
 		return dataProvider.updateUser(id, userEntity);
 	}

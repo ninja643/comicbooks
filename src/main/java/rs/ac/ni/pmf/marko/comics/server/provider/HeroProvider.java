@@ -12,7 +12,7 @@ public interface HeroProvider {
 	
 	public HeroEntity add(HeroEntity heroEntity) throws DuplicateResourceException;
 	
-	public HeroEntity update(Long id, HeroEntity heroEntity);
+	public HeroEntity update(Long id, HeroEntity heroEntity) throws ResourceNotFoundException;
 	
 	public void delete(Long id) throws ResourceNotFoundException;
 	

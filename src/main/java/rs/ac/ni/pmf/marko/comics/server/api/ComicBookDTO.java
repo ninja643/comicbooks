@@ -1,7 +1,12 @@
 package rs.ac.ni.pmf.marko.comics.server.api;
 
+
+import java.util.List;
+
 import lombok.Value;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.HeroEntity;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.PublisherEntity;
 
 @Value
 public class ComicBookDTO {
@@ -16,17 +21,22 @@ public class ComicBookDTO {
 	
 	private String frontPageUrl;
 	
-	public ComicBookDTO fromEntity(ComicBookEntity comicBookEntity) 
+	private PublisherEntity publisher;
+	
+	private List<HeroEntity> heroes; 
+	
+	private ComicBookDTO fromEntity(ComicBookEntity comicBookEntity) 
 	{
 		return new ComicBookDTO(comicBookEntity.getId(), comicBookEntity.getVersion(),
 				comicBookEntity.getNumber(), comicBookEntity.getTitle(),
-				comicBookEntity.getFrontPageUrl());
+				comicBookEntity.getFrontPageUrl(), comicBookEntity.getPublisher(), 
+				comicBookEntity.getHeroes());
 	}
 	
 	public ComicBookEntity toEntity()
 	{
-		return new ComicBookEntity(getId(), getVersion(), getNumber(),
-				getTitle(), getFrontPageUrl());
+		return new ComicBookEntity(this.getId(), this.getVersion(), this.getNumber(),
+				this.getTitle(), this.getFrontPageUrl(), this.getPublisher(), this.getHeroes());
 	}
 	
 }

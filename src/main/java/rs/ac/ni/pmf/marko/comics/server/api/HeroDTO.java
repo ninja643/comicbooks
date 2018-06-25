@@ -2,6 +2,7 @@ package rs.ac.ni.pmf.marko.comics.server.api;
 
 import java.util.List;
 
+import lombok.Data;
 import lombok.Value;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.HeroEntity;
@@ -23,7 +24,7 @@ public class HeroDTO {
 				heroEntity.getName(), heroEntity.getComicBooks());
 	}
 	
-	public static HeroEntity toEntity() 
+	public HeroEntity toEntity() 
 	{
 		return new HeroEntity(getId(), getVersion(), getName(), getComicBooks());
 	}

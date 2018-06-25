@@ -44,13 +44,13 @@ public class HeroProviderImpl implements HeroProvider {
 	}
 
 	@Override
-	public HeroEntity update(Long id, HeroEntity heroEntity)
+	public HeroEntity update(Long id, HeroEntity heroEntity) throws ResourceNotFoundException
 	{
 		throwIfUnknownId(id);
 		
 		heroEntity.setId(id);
 		
-		_heroRepository.save(heroEntity);
+		return _heroRepository.save(heroEntity);
 	}
 
 	@Override

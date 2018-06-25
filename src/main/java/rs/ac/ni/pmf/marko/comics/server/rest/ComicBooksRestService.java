@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 
@@ -35,13 +36,13 @@ public class ComicBooksRestService
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity add(@ApiParam(required = true) @RequestBody final ComicBookEntity comicBook)
+	public ComicBookEntity add(@ApiParam(required = true) @RequestBody final ComicBookEntity comicBook) throws DuplicateResourceException
 	{
 		return dataProvider.add(comicBook);
 	}
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity update(@RequestParam(name = "id")Long id, @RequestBody ComicBookEntity comicBookEntity) 
+	public ComicBookEntity update(@RequestParam(name = "id")Long id, @RequestBody ComicBookEntity comicBookEntity) throws ResourceNotFoundException 
 	{
 		return dataProvider.update(id, comicBookEntity);
 	}

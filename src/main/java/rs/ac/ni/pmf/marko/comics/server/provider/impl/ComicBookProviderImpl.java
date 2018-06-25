@@ -3,8 +3,11 @@ package rs.ac.ni.pmf.marko.comics.server.provider.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.HeroEntity;
+import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.jpa.ComicBooksRepository;
@@ -22,9 +25,14 @@ public class ComicBookProviderImpl implements ComicBookProvider
 	}
 
 	@Override
-	public ComicBookEntity add(final ComicBookEntity comicBook)
+	public ComicBookEntity add(final ComicBookEntity comicBook) throws DuplicateResourceException
 	{
+		try {
 		return _comicBooksRepository.save(comicBook);
+		}catch(final DataIntegrityViolationException e) {
+			throw new DuplicateResourceException(ResourceType.COMIC_BOOK,
+					"Comicbook with id: "+comicBook.getId() + "already exists");
+		}
 	}
 
 	@Override
@@ -36,7 +44,7 @@ public class ComicBookProviderImpl implements ComicBookProvider
 	}
 
 	@Override
-	public ComicBookEntity update(Long id, ComicBookEntity comicBook) {
+	public ComicBookEntity update(Long id, ComicBookEntity comicBook) throws ResourceNotFoundException {
 		
 		throwIfUnknownId(id);
 		
