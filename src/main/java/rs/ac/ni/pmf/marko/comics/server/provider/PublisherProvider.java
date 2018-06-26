@@ -1,12 +1,15 @@
 package rs.ac.ni.pmf.marko.comics.server.provider;
 
+import java.util.List;
+
+import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 
 public interface PublisherProvider
 {
-	Iterable<PublisherEntity> getAll();
+	List<PublisherDTO> getAll();
 
 	PublisherEntity get(long id) throws ResourceNotFoundException;
 

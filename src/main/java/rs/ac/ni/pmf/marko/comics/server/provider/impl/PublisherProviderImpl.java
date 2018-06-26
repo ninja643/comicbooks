@@ -1,8 +1,13 @@
 package rs.ac.ni.pmf.marko.comics.server.provider.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.PublisherConverter;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
@@ -14,11 +19,16 @@ public class PublisherProviderImpl implements PublisherProvider
 {
 	@Autowired
 	private PublisherRepository _publisherRepository;
+	
+	@Autowired
+	private PublisherConverter _publisherConverter;
 
 	@Override
-	public Iterable<PublisherEntity> getAll()
+	public List<PublisherDTO> getAll()
 	{
-		return _publisherRepository.findAll();
+		final List<PublisherEntity> entities = _publisherRepository.findAll();
+		
+		return entities.stream().map(e -> _publisherConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
 	@Override

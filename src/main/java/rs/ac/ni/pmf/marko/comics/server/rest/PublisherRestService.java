@@ -1,5 +1,7 @@
 package rs.ac.ni.pmf.marko.comics.server.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
@@ -24,7 +27,7 @@ public class PublisherRestService
 	private PublisherProvider _publisherProvider;
 
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Iterable<PublisherEntity> getAll()
+	public List<PublisherDTO> getAll()
 	{
 		return _publisherProvider.getAll();
 	}
