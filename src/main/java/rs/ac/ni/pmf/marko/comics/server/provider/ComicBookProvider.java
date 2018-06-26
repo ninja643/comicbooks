@@ -1,6 +1,6 @@
 package rs.ac.ni.pmf.marko.comics.server.provider;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
 
 public interface ComicBookProvider
 {

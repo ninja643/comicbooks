@@ -3,7 +3,7 @@ package rs.ac.ni.pmf.marko.comics.server.provider.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.PublisherEntity;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;

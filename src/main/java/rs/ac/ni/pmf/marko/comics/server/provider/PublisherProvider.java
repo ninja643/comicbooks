@@ -1,6 +1,6 @@
 package rs.ac.ni.pmf.marko.comics.server.provider;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.PublisherEntity;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 

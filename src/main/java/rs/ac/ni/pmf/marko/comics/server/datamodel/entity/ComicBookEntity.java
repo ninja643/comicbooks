@@ -1,4 +1,4 @@
-package rs.ac.ni.pmf.marko.comics.server.datamodel;
+package rs.ac.ni.pmf.marko.comics.server.datamodel.entity;
 
 import java.util.List;
 

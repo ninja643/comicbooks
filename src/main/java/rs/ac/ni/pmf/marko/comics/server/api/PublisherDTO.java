@@ -1,7 +1,7 @@
 package rs.ac.ni.pmf.marko.comics.server.api;
 
 import lombok.Value;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.PublisherEntity;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.PublisherEntity;
 
 @Value
 public class PublisherDTO
