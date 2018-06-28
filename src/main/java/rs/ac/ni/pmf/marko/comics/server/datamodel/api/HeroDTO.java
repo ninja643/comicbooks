@@ -3,8 +3,9 @@ package rs.ac.ni.pmf.marko.comics.server.datamodel.api;
 import lombok.Value;
 
 @Value
-public class PublisherDTO 
+public class HeroDTO 
 {
-	private long id;
+	private Long id;
+	
 	private String name;
 }

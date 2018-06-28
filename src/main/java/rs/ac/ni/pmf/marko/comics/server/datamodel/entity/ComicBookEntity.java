@@ -30,7 +30,7 @@ public class ComicBookEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	@Version
 	private int version;

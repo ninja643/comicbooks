@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class HeroEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	@Version
 	private int version;
@@ -34,6 +35,6 @@ public class HeroEntity
 	@Column
 	private String name;
 
-	@ManyToMany(mappedBy = "heroes")
+	@ManyToMany(fetch  = FetchType.EAGER, mappedBy = "heroes")
 	private List<ComicBookEntity> comicBooks;
 }

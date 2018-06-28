@@ -10,6 +10,5 @@ import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
 @Repository
 public interface ComicBooksRepository extends CrudRepository<ComicBookEntity, Long>
 {
-	@Override
 	List<ComicBookEntity> findAll();
 }
