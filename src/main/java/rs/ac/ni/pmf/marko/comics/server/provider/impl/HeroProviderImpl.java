@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Component;
+
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.HeroConverter;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.HeroEntity;
@@ -13,6 +15,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.jpa.HeroRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
 
+@Component
 public class HeroProviderImpl implements HeroProvider
 {
 	@Autowired

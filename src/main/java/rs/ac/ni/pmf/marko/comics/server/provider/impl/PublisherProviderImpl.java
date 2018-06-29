@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Component;
 
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.PublisherConverter;
@@ -15,6 +16,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.jpa.PublisherRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.PublisherProvider;
 
+@Component
 public class PublisherProviderImpl implements PublisherProvider
 {
 	@Autowired

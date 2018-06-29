@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Component;
 
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.ComicBookConverter;
@@ -15,6 +16,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.jpa.ComicBooksRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 
+@Component
 public class ComicBookProviderImpl implements ComicBookProvider
 {
 	@Autowired

@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.UserDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.UserConverter;
@@ -19,6 +20,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.jpa.UserRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.UserProvider;
 
+@Component
 public class UserProviderImpl implements UserProvider 
 {
 	@Autowired
