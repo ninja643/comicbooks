@@ -35,6 +35,6 @@ public class HeroEntity
 	@Column
 	private String name;
 
-	@ManyToMany(fetch  = FetchType.EAGER, mappedBy = "heroes")
+	@ManyToMany(mappedBy = "heroes")
 	private List<ComicBookEntity> comicBooks;
 }

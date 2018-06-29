@@ -36,6 +36,6 @@ public class PublisherEntity
 	@Column(name = "name", length = 200, nullable = false, unique = true)
 	private String name;
 
-	@OneToMany(mappedBy = "publisher", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "publisher")
 	private Set<ComicBookEntity> comicBooks;
 }
