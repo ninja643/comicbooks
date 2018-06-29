@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Component;
 
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.PublisherConverter;
@@ -15,6 +16,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.jpa.PublisherRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.PublisherProvider;
 
+@Component
 public class PublisherProviderImpl implements PublisherProvider
 {
 	@Autowired
@@ -32,10 +34,13 @@ public class PublisherProviderImpl implements PublisherProvider
 	}
 
 	@Override
-	public PublisherEntity get(final long id) throws ResourceNotFoundException
+	public PublisherDTO get(final Long id) throws ResourceNotFoundException
+
 	{
-		return _publisherRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER, ""));
+		PublisherEntity publisherEntity = _publisherRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER, "Publisher with id: "+ id + " doesn't exist"));
+		
+		return _publisherConverter.dtoFromEntity(publisherEntity);
 	}
 
 	@Override
@@ -52,7 +57,7 @@ public class PublisherProviderImpl implements PublisherProvider
 	}
 
 	@Override
-	public PublisherEntity update(final long id, final PublisherEntity publisher)
+	public PublisherEntity update(final Long id, final PublisherEntity publisher)
 			throws ResourceNotFoundException, DuplicateResourceException
 	{
 		throwIfUnknownId(id);
@@ -63,7 +68,7 @@ public class PublisherProviderImpl implements PublisherProvider
 	}
 
 	@Override
-	public void delete(final long id) throws ResourceNotFoundException
+	public void delete(final Long id) throws ResourceNotFoundException
 	{
 		throwIfUnknownId(id);
 

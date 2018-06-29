@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -33,7 +33,7 @@ public class PublisherRestService
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public PublisherEntity getById(@RequestParam(name = "id") final long id) throws ResourceNotFoundException
+	public PublisherDTO getById(@PathVariable(name = "id") final long id) throws ResourceNotFoundException
 	{
 		return _publisherProvider.get(id);
 	}
@@ -46,9 +46,26 @@ public class PublisherRestService
 		return _publisherProvider.add(publisher);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void delete(@RequestParam(name = "id") final long id) throws ResourceNotFoundException
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable(name = "id") final long id) throws ResourceNotFoundException
 	{
 		_publisherProvider.delete(id);
 	}
+	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, 
+			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE) 
+	public PublisherEntity update(@PathVariable(name = "id") Long id, @RequestBody PublisherEntity publisherEntity) throws ResourceNotFoundException, DuplicateResourceException 
+	{
+		return _publisherProvider.update(id,publisherEntity);
+	}
 }
+
+
+
+
+
+
+
+
+
+
