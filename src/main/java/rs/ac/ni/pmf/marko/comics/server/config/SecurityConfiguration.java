@@ -37,9 +37,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	public static final String[] PUBLIC_MATCHERS = 
 	{ 
-		"**/logout",
-	    "**/login",
+		"/logout/**",
+	    "/login/**",
 	};
+
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -75,10 +76,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().
-								 antMatchers("/services/rest/**").hasRole("ADMIN")
-								 .anyRequest().authenticated().and().formLogin();
 
-		http.csrf().disable();
+								 antMatchers("/services/rest/**").hasRole("ADMIN")
+								 .anyRequest().authenticated().and().formLogin()
+								 .and().csrf().disable();
 
 	}
 
