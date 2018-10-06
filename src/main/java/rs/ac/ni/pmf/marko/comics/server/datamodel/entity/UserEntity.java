@@ -41,7 +41,13 @@ public class UserEntity
 
 	@Column
 	private String password;
+	
+	@Column
+	private String enabled;
 
 	@Column
 	private String email;
+	
+	@Column
+	private String role;
 }
