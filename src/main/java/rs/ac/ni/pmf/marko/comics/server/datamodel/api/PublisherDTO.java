@@ -6,5 +6,6 @@ import lombok.Value;
 public class PublisherDTO 
 {
 	private long id;
+	
 	private String name;
 }
