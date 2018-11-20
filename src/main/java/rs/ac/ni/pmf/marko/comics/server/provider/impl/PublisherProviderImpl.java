@@ -21,7 +21,7 @@ public class PublisherProviderImpl implements PublisherProvider
 {
 	@Autowired
 	private PublisherRepository _publisherRepository;
-	
+
 	@Autowired
 	private PublisherConverter _publisherConverter;
 
@@ -29,7 +29,7 @@ public class PublisherProviderImpl implements PublisherProvider
 	public List<PublisherDTO> getAll()
 	{
 		final List<PublisherEntity> entities = _publisherRepository.findAll();
-		
+
 		return entities.stream().map(e -> _publisherConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
@@ -37,9 +37,10 @@ public class PublisherProviderImpl implements PublisherProvider
 	public PublisherDTO get(final Long id) throws ResourceNotFoundException
 
 	{
-		PublisherEntity publisherEntity = _publisherRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER, "Publisher with id: "+ id + " doesn't exist"));
-		
+		final PublisherEntity publisherEntity = _publisherRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER,
+						"Publisher with id: " + id + " doesn't exist"));
+
 		return _publisherConverter.dtoFromEntity(publisherEntity);
 	}
 

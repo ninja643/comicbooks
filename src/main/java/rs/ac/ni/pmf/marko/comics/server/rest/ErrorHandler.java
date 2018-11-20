@@ -11,7 +11,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 
 @ControllerAdvice
 public class ErrorHandler
-{	
+{
 	@ExceptionHandler(ResourceNotFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	@ResponseBody
@@ -27,5 +27,5 @@ public class ErrorHandler
 	{
 		return new ErrorInfo(ErrorId.from(e), e.getMessage());
 	}
-	
+
 }

@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @XmlRootElement
 @Data
 @AllArgsConstructor
@@ -41,13 +40,13 @@ public class UserEntity
 
 	@Column
 	private String password;
-	
+
 	@Column
 	private String enabled;
 
 	@Column
 	private String email;
-	
+
 	@Column
 	private String role;
 }

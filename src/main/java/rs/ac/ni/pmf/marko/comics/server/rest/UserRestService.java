@@ -25,7 +25,8 @@ import rs.ac.ni.pmf.marko.comics.server.provider.UserProvider;
 @RestController
 @Api
 @RequestMapping(value = "/user")
-public class UserRestService {
+public class UserRestService
+{
 	@Autowired
 	UserProvider dataProvider;
 
@@ -38,31 +39,31 @@ public class UserRestService {
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 
-	public Iterable<UserEntity> search
-			(@RequestParam(name = "firstName", required = false) String firstName,
-			@RequestParam(name = "lastName", required = false) String lastName,
-			@RequestParam(name = "username", required = false) String username,
-			@RequestParam(name = "password", required = false) String password,
-			@RequestParam(name = "email", required = false) String email,
-			@RequestParam(name = "page") int pageNumber,
-			@RequestParam(name = "pageSize") int pageSize) {
+	public Iterable<UserEntity> search(@RequestParam(name = "firstName", required = false) final String firstName,
+			@RequestParam(name = "lastName", required = false) final String lastName,
+			@RequestParam(name = "username", required = false) final String username,
+			@RequestParam(name = "password", required = false) final String password,
+			@RequestParam(name = "email", required = false) final String email,
+			@RequestParam(name = "page") final int pageNumber, @RequestParam(name = "pageSize") final int pageSize)
+	{
 		return dataProvider.search(firstName, lastName, username, password, email, pageNumber, pageSize);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public UserDTO getById(@PathVariable(name = "id") Long id) throws ResourceNotFoundException
+	public UserDTO getById(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
 
 	{
 		return dataProvider.get(id);
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public UserEntity add(@RequestBody UserEntity user) throws DuplicateResourceException {
+	public UserEntity add(@RequestBody final UserEntity user) throws DuplicateResourceException
+	{
 		return dataProvider.add(user);
 	}
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public UserEntity update(@PathVariable(name = "id") Long id, @RequestBody UserEntity userEntity)
+	public UserEntity update(@PathVariable(name = "id") final Long id, @RequestBody final UserEntity userEntity)
 			throws ResourceNotFoundException
 
 	{
@@ -70,23 +71,25 @@ public class UserRestService {
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable(name = "id") Long id) throws ResourceNotFoundException {
+	public void delete(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
+	{
 		dataProvider.deleteUser(id);
 	}
 
 	/**
 	 * Returns roles of the logged in user commiting this request
-	 * 
+	 *
 	 * @param principal
 	 * @throws ResourceNotFoundException
 	 */
 
 	@RequestMapping(value = "loggedInUserRoles", method = RequestMethod.GET)
-	public Collection<? extends GrantedAuthority> getLogedInUsername(Authentication authentication)
-			throws ResourceNotFoundException {
-		if (authentication == null) {
-			throw new ResourceNotFoundException(ResourceType.USER,
-					"Only logged in users can see their roles!");
+	public Collection<? extends GrantedAuthority> getLogedInUsername(final Authentication authentication)
+			throws ResourceNotFoundException
+	{
+		if (authentication == null)
+		{
+			throw new ResourceNotFoundException(ResourceType.USER, "Only logged in users can see their roles!");
 		}
 
 		return authentication.getAuthorities();
@@ -95,17 +98,18 @@ public class UserRestService {
 
 	/**
 	 * Returns username of the logged in user commiting this request
-	 * 
+	 *
 	 * @param authentication
-	 * @throws ResourceNotFoundException 
-	 * 
+	 * @throws ResourceNotFoundException
+	 *
 	 */
 
 	@RequestMapping(value = "/loggedInUsername", method = RequestMethod.GET)
-	public String getAuthoritiesFromLoggedInUser(Principal principal) throws ResourceNotFoundException {
-		if (principal == null) {
-			throw new ResourceNotFoundException(ResourceType.USER,
-					"Only logged in users can see their username!");
+	public String getAuthoritiesFromLoggedInUser(final Principal principal) throws ResourceNotFoundException
+	{
+		if (principal == null)
+		{
+			throw new ResourceNotFoundException(ResourceType.USER, "Only logged in users can see their username!");
 		}
 
 		return principal.getName();

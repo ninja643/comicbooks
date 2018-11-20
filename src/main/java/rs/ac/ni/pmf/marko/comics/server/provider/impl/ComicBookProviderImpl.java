@@ -24,59 +24,65 @@ public class ComicBookProviderImpl implements ComicBookProvider
 
 	@Autowired
 	private ComicBookConverter _comicBookConverter;
-	
+
 	@Override
 	public Iterable<ComicBookDTO> getAll()
 	{
-		List<ComicBookEntity> entities = _comicBooksRepository.findAll();
+		final List<ComicBookEntity> entities = _comicBooksRepository.findAll();
 		return entities.stream().map(e -> _comicBookConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
 	@Override
 	public ComicBookEntity add(final ComicBookEntity comicBook) throws DuplicateResourceException
 	{
-		try {
-		return _comicBooksRepository.save(comicBook);
-		}catch(final DataIntegrityViolationException e) {
+		try
+		{
+			return _comicBooksRepository.save(comicBook);
+		} catch (final DataIntegrityViolationException e)
+		{
 			throw new DuplicateResourceException(ResourceType.COMIC_BOOK,
-					"Comicbook with id: "+comicBook.getId() + "already exists");
+					"Comicbook with id: " + comicBook.getId() + "already exists");
 		}
 	}
 
 	@Override
-	public ComicBookDTO get(Long id) throws ResourceNotFoundException {
-		
-		ComicBookEntity entity = _comicBooksRepository.findById(id)
+	public ComicBookDTO get(final Long id) throws ResourceNotFoundException
+	{
+
+		final ComicBookEntity entity = _comicBooksRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.COMIC_BOOK, ""));
-		
+
 		return _comicBookConverter.dtoFromEntity(entity);
 	}
 
 	@Override
-	public ComicBookEntity update(Long id, ComicBookEntity comicBook) throws ResourceNotFoundException {
-		
+	public ComicBookEntity update(final Long id, final ComicBookEntity comicBook) throws ResourceNotFoundException
+	{
+
 		throwIfUnknownId(id);
-		
+
 		comicBook.setId(id);
-		
+
 		return _comicBooksRepository.save(comicBook);
-		
+
 	}
 
 	@Override
-	public void deleteComicBook(Long id) throws ResourceNotFoundException{
-		
+	public void deleteComicBook(final Long id) throws ResourceNotFoundException
+	{
+
 		throwIfUnknownId(id);
-		
+
 		_comicBooksRepository.deleteById(id);
-		
+
 	}
-	
+
 	private void throwIfUnknownId(final long id) throws ResourceNotFoundException
 	{
 		if (!_comicBooksRepository.existsById(id))
 		{
-			throw new ResourceNotFoundException(ResourceType.COMIC_BOOK, "Comic book with id " + id + " does not exist");
+			throw new ResourceNotFoundException(ResourceType.COMIC_BOOK,
+					"Comic book with id " + id + " does not exist");
 		}
 	}
 

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.UserDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.UserConverter;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.UserEntity;
-
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
@@ -21,67 +20,66 @@ import rs.ac.ni.pmf.marko.comics.server.jpa.UserRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.UserProvider;
 
 @Component
-public class UserProviderImpl implements UserProvider 
+public class UserProviderImpl implements UserProvider
 {
 	@Autowired
 	private UserRepository _userRepository;
-	
+
 	@Autowired
 	private UserConverter _userConverter;
-	
+
 	@Override
-	public Iterable<UserDTO> getAll() 
+	public Iterable<UserDTO> getAll()
 	{
-		List<UserEntity> entities = _userRepository.findAll();
+		final List<UserEntity> entities = _userRepository.findAll();
 		return entities.stream().map(e -> _userConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
 	@Override
-	public UserDTO get(Long id) throws ResourceNotFoundException
+	public UserDTO get(final Long id) throws ResourceNotFoundException
 	{
-		UserEntity entity = _userRepository.findById(id)
-				.orElseThrow(()-> new ResourceNotFoundException(ResourceType.USER,
-						"User with id: "+id+" doesn't exist."));
-		
+		final UserEntity entity = _userRepository.findById(id).orElseThrow(
+				() -> new ResourceNotFoundException(ResourceType.USER, "User with id: " + id + " doesn't exist."));
+
 		return _userConverter.dtoFromEntity(entity);
 	}
-	
+
 	@Override
-	public Page<UserEntity> search(String firstName, String lastName, String username, String password,
-			String email, int pageNumber, int pageSize) 
+	public Page<UserEntity> search(final String firstName, final String lastName, final String username,
+			final String password, final String email, final int pageNumber, final int pageSize)
 	{
 		return _userRepository.getByProperties(firstName, lastName, username, password, email,
 				PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "firstName"));
 	}
-	
+
 	@Override
-	public UserEntity add(UserEntity user) throws DuplicateResourceException 
+	public UserEntity add(final UserEntity user) throws DuplicateResourceException
 	{
-		try 
+		try
 		{
-		return _userRepository.save(user);
-		}catch(final DataIntegrityViolationException e)
+			return _userRepository.save(user);
+		} catch (final DataIntegrityViolationException e)
 		{
-			throw new DuplicateResourceException(ResourceType.USER, 
-				"User "+user.getId()+" already exists");
+			throw new DuplicateResourceException(ResourceType.USER, "User " + user.getId() + " already exists");
 		}
 	}
 
 	@Override
-	public UserEntity updateUser(Long id, UserEntity userEntity) throws ResourceNotFoundException 
+	public UserEntity updateUser(final Long id, final UserEntity userEntity) throws ResourceNotFoundException
 
 	{
 		throwIfUnknownId(id);
-		
+
 		userEntity.setId(id);
-		
+
 		return _userRepository.save(userEntity);
 	}
 
 	@Override
-	public void deleteUser(Long id) throws ResourceNotFoundException {
+	public void deleteUser(final Long id) throws ResourceNotFoundException
+	{
 		throwIfUnknownId(id);
-		
+
 		_userRepository.deleteById(id);
 	}
 

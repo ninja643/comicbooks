@@ -6,11 +6,11 @@ import rs.ac.ni.pmf.marko.comics.server.datamodel.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
 
 @Component
-public class ComicBookConverter 
+public class ComicBookConverter
 {
-	public ComicBookDTO dtoFromEntity(ComicBookEntity comicBookEntity)
+	public ComicBookDTO dtoFromEntity(final ComicBookEntity comicBookEntity)
 	{
-		return new ComicBookDTO(comicBookEntity.getId(), comicBookEntity.getNumber(),
-				comicBookEntity.getTitle(), comicBookEntity.getFrontPageUrl());
+		return new ComicBookDTO(comicBookEntity.getId(), comicBookEntity.getNumber(), comicBookEntity.getTitle(),
+				comicBookEntity.getFrontPageUrl());
 	}
 }

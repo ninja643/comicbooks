@@ -8,7 +8,7 @@ import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.HeroEntity;
 @Component
 public class HeroConverter
 {
-	public HeroDTO dtoFromEntity(HeroEntity heroEntity)
+	public HeroDTO dtoFromEntity(final HeroEntity heroEntity)
 	{
 		return new HeroDTO(heroEntity.getId(), heroEntity.getName());
 	}

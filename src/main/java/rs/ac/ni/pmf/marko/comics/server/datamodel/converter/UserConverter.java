@@ -8,7 +8,7 @@ import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.UserEntity;
 @Component
 public class UserConverter
 {
-	public UserDTO dtoFromEntity(UserEntity userEntity)
+	public UserDTO dtoFromEntity(final UserEntity userEntity)
 	{
 		return new UserDTO(userEntity.getId(), userEntity.getFirstName(), userEntity.getLastName(),
 				userEntity.getUsername(), userEntity.getPassword(), userEntity.getEmail());

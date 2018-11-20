@@ -17,43 +17,43 @@ import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
 
 @RestController
 @Api
-@RequestMapping(value="/hero")
-public class HeroRestService 
+@RequestMapping(value = "/hero")
+public class HeroRestService
 {
 
 	@Autowired
 	HeroProvider dataProvider;
-	
-	@RequestMapping(value = "",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+
+	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Iterable<HeroDTO> getAll()
 	{
 		return dataProvider.getAll();
 	}
-		
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HeroDTO getById(@PathVariable(name = "id") Long id) throws ResourceNotFoundException 
+	public HeroDTO getById(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
 
 	{
 		return dataProvider.get(id);
 	}
-	
+
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HeroEntity add(@RequestBody HeroEntity heroEntity) throws DuplicateResourceException
+	public HeroEntity add(@RequestBody final HeroEntity heroEntity) throws DuplicateResourceException
 	{
 		return dataProvider.add(heroEntity);
 	}
-	
+
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HeroEntity update(@PathVariable(name = "id") Long id, @RequestBody HeroEntity heroEntity) throws ResourceNotFoundException
+	public HeroEntity update(@PathVariable(name = "id") final Long id, @RequestBody final HeroEntity heroEntity)
+			throws ResourceNotFoundException
 	{
 		return dataProvider.update(id, heroEntity);
 	}
-	
+
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 
-	public void delete(@PathVariable(name = "id")Long id) throws ResourceNotFoundException
+	public void delete(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
 	{
-			dataProvider.delete(id);
+		dataProvider.delete(id);
 	}
 }
-

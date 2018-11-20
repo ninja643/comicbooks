@@ -12,9 +12,9 @@ public interface ComicBookProvider
 	public ComicBookDTO get(Long id) throws ResourceNotFoundException;
 
 	public ComicBookEntity add(ComicBookEntity comicBook) throws DuplicateResourceException;
-	
+
 	public ComicBookEntity update(Long id, ComicBookEntity comicBook) throws ResourceNotFoundException;
-	
+
 	public void deleteComicBook(Long id) throws ResourceNotFoundException;
-	
+
 }

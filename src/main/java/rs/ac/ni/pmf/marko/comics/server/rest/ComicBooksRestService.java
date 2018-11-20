@@ -32,25 +32,27 @@ public class ComicBooksRestService
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookDTO getById(@PathVariable(name = "id") Long id) throws ResourceNotFoundException
+	public ComicBookDTO getById(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
 	{
-			return dataProvider.get(id);
+		return dataProvider.get(id);
 	}
-	
+
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity add(@ApiParam(required = true) @RequestBody final ComicBookEntity comicBook) throws DuplicateResourceException
+	public ComicBookEntity add(@ApiParam(required = true) @RequestBody final ComicBookEntity comicBook)
+			throws DuplicateResourceException
 	{
 		return dataProvider.add(comicBook);
 	}
-	
+
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity update(@PathVariable(name = "id")Long id, @RequestBody ComicBookEntity comicBookEntity) throws ResourceNotFoundException 
+	public ComicBookEntity update(@PathVariable(name = "id") final Long id,
+			@RequestBody final ComicBookEntity comicBookEntity) throws ResourceNotFoundException
 	{
 		return dataProvider.update(id, comicBookEntity);
 	}
-	
+
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable(name = "id")Long id) throws ResourceNotFoundException 
+	public void delete(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
 	{
 		dataProvider.deleteComicBook(id);
 	}
