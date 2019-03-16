@@ -15,6 +15,7 @@
 		<slf4j.version>1.7.1</slf4j.version>
 		<jackson.version>2.9.5</jackson.version>
 		<swagger.version>2.9.2</swagger.version>
+		<jmockit.version>1.45</jmockit.version>
 	</properties>
 
 	<build>
@@ -37,6 +38,16 @@
 				<configuration>
 					<!-- web.xml is not mandatory since JavaEE 5 -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.21.0</version>
+				<configuration>
+					<argLine>
+						-javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar
+					</argLine>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -159,20 +170,29 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>5.1.0.RELEASE</version>
 		</dependency>
-        <dependency>
+
+		<dependency>
+			<groupId>org.jmockit</groupId>
+			<artifactId>jmockit</artifactId>
+			<version>${jmockit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.12.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
 
-    </dependencies>
+	</dependencies>
 
 
 
