@@ -13,6 +13,7 @@ import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table
 public class HeroEntity
 {
