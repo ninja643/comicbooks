@@ -15,10 +15,7 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @XmlRootElement
 @Data
@@ -26,6 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "number", "publisher_id" }) })
+@Builder
 public class ComicBookEntity
 {
 	@Id
