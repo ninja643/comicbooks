@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
-@ComponentScan(basePackages = "rs.ac.ni.pmf.marko.comics.server")
 @EnableWebMvc
+@ComponentScan(basePackages = "rs.ac.ni.pmf.marko.comics.server")
 public class ApplicationConfiguration
 {
 
