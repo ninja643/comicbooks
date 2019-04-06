@@ -1,23 +1,20 @@
 package rs.ac.ni.pmf.marko.comics.server.config;
 
-import java.sql.SQLException;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.UserEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.provider.UserProvider;
 
-@EnableWebSecurity
+import javax.sql.DataSource;
+import java.sql.SQLException;
+
+//@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
 
@@ -36,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 		return new BCryptPasswordEncoder();
 	}
 
-	public static final String[] PUBLIC_MATCHERS = { "/logout/**", "/login/**", };
+	public static final String[] PUBLIC_MATCHERS = { "/logout/**", "/login/**", "/swagger-ui.html"};
 
 	@Autowired
 	public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception
