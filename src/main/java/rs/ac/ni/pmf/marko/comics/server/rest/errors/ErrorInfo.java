@@ -1,4 +1,4 @@
-package rs.ac.ni.pmf.marko.comics.server.rest;
+package rs.ac.ni.pmf.marko.comics.server.rest.errors;
 
 import lombok.Value;
 

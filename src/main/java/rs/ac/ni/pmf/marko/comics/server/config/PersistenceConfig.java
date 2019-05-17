@@ -20,10 +20,10 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = { "rs.ac.ni.pmf.marko.comics.server.datamodel",
-		"rs.ac.ni.pmf.marko.comics.server.jpa" })
+@EnableJpaRepositories(basePackages = {
+		"rs.ac.ni.pmf.marko.comics.server.datamodel",
+		"rs.ac.ni.pmf.marko.comics.server.jpa"})
 @PropertySource(value = "classpath:/application.properties")
-
 public class PersistenceConfig
 {
 	@Bean(destroyMethod = "close")
@@ -39,7 +39,8 @@ public class PersistenceConfig
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource,
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+			final DataSource dataSource,
 			final Environment env)
 	{
 		final LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();

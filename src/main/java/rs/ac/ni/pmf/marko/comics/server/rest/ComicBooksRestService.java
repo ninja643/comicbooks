@@ -12,8 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
+import rs.ac.ni.pmf.marko.comics.server.exception.*;
 import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 
 @RestController
@@ -22,38 +21,44 @@ import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 public class ComicBooksRestService
 {
 	@Autowired
-	private ComicBookProvider dataProvider;
+	private ComicBookProvider comicBookProvider;
 
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Iterable<ComicBookDTO> getAll()
-
 	{
-		return dataProvider.getAll();
+		return comicBookProvider.getAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ComicBookDTO getById(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
 	{
-		return dataProvider.get(id);
+		return comicBookProvider.get(id);
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity add(@ApiParam(required = true) @RequestBody final ComicBookEntity comicBook)
+	public Long add(@ApiParam(required = true) @RequestBody final ComicBookDTO comicBook)
 			throws DuplicateResourceException
 	{
-		return dataProvider.add(comicBook);
+		return comicBookProvider.add(comicBook);
 	}
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookEntity update(@PathVariable(name = "id") final Long id,
-			@RequestBody final ComicBookEntity comicBookEntity) throws ResourceNotFoundException
+	public Long update(
+			@PathVariable(name = "id") final Long id,
+			@RequestBody final ComicBookDTO comicBookEntity) throws ResourceNotFoundException, BadRequestException
 	{
-		return dataProvider.update(id, comicBookEntity);
+		if (comicBookEntity.getId() != null && comicBookEntity.getId() != id)
+		{
+			throw new BadRequestException(ResourceType.COMIC_BOOK, "Comic book id cannot be changed. " +
+					"Do not supply it in the request body");
+		}
+
+		return comicBookProvider.update(comicBookEntity);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
 	{
-		dataProvider.deleteComicBook(id);
+		comicBookProvider.deleteComicBook(id);
 	}
 }

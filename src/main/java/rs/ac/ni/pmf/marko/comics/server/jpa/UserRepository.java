@@ -21,7 +21,11 @@ public interface UserRepository extends CrudRepository<UserEntity, Long>
 	@Query(value = "" + "from UserEntity e where " + "e.firstName like %:firstName% or "
 			+ "e.lastName like %:lastName% or " + "e.username like %:username% or " + "e.password like %:password% or "
 			+ "e.email like %:email%")
-	public Page<UserEntity> getByProperties(@Param(value = "firstName") String firstName,
-			@Param(value = "lastName") String lastName, @Param(value = "username") String username,
-			@Param(value = "password") String password, @Param(value = "email") String email, Pageable page);
+	public Page<UserEntity> getByProperties(
+			@Param(value = "firstName") String firstName,
+			@Param(value = "lastName") String lastName,
+			@Param(value = "username") String username,
+			@Param(value = "password") String password,
+			@Param(value = "email") String email,
+			Pageable page);
 }

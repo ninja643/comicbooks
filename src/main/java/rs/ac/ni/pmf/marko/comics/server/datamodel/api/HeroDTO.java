@@ -9,6 +9,5 @@ import lombok.*;
 public class HeroDTO
 {
 	private Long id;
-
 	private String name;
 }

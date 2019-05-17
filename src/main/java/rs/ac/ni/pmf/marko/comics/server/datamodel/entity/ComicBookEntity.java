@@ -42,9 +42,9 @@ public class ComicBookEntity
 	@Column
 	private String frontPageUrl;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private PublisherEntity publisher;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<HeroEntity> heroes;
 }
