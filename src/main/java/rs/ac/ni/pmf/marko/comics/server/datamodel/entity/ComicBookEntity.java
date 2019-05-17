@@ -42,7 +42,7 @@ public class ComicBookEntity
 	@Column
 	private String frontPageUrl;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private PublisherEntity publisher;
 
 	@ManyToMany(fetch = FetchType.LAZY)

@@ -3,10 +3,12 @@ package rs.ac.ni.pmf.marko.comics.server.provider.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
+import org.springframework.transaction.annotation.Transactional;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.ComicBookConverter;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
@@ -14,18 +16,20 @@ import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.jpa.ComicBooksRepository;
+import rs.ac.ni.pmf.marko.comics.server.jpa.HeroRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 
 @Component
+@RequiredArgsConstructor
 public class ComicBookProviderImpl implements ComicBookProvider
 {
-	@Autowired
-	private ComicBooksRepository _comicBooksRepository;
+	private final ComicBooksRepository _comicBooksRepository;
+	private final HeroRepository _heroRepository;
 
-	@Autowired
-	private ComicBookConverter _comicBookConverter;
+	private final ComicBookConverter _comicBookConverter;
 
 	@Override
+	@Transactional
 	public List<ComicBookDTO> getAll()
 	{
 		final List<ComicBookEntity> entities = _comicBooksRepository.findAll();
