@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.HeroDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.HeroEntity;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
+import rs.ac.ni.pmf.marko.comics.server.exception.*;
 import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
 
 @RestController
@@ -22,38 +20,44 @@ public class HeroRestService
 {
 
 	@Autowired
-	HeroProvider dataProvider;
+	HeroProvider heroProvider;
 
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Iterable<HeroDTO> getAll()
 	{
-		return dataProvider.getAll();
+		return heroProvider.getAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public HeroDTO getById(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
 
 	{
-		return dataProvider.get(id);
+		return heroProvider.get(id);
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HeroEntity add(@RequestBody final HeroEntity heroEntity) throws DuplicateResourceException
+	public Long add(@RequestBody final HeroDTO hero) throws DuplicateResourceException
 	{
-		return dataProvider.add(heroEntity);
+		return heroProvider.add(hero);
 	}
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HeroEntity update(@PathVariable(name = "id") final Long id, @RequestBody final HeroEntity heroEntity)
-			throws ResourceNotFoundException
+	public Long update(@PathVariable(name = "id") final Long id, @RequestBody final HeroDTO hero)
+			throws ResourceNotFoundException, BadRequestException
 	{
-		return dataProvider.update(id, heroEntity);
+		if (hero.getId() != null && hero.getId() != id)
+		{
+			throw new BadRequestException(ResourceType.HERO, "Hero id cannot be changed. " +
+					"You should not supply it in the request body");
+		}
+
+		return heroProvider.update(id, hero);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 
 	public void delete(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
 	{
-		dataProvider.delete(id);
+		heroProvider.delete(id);
 	}
 }

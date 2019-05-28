@@ -12,4 +12,9 @@ public class HeroConverter
 	{
 		return new HeroDTO(heroEntity.getId(), heroEntity.getName());
 	}
+
+	public HeroEntity entityFromDto(final HeroDTO dto)
+	{
+		return HeroEntity.builder().id(dto.getId()).name(dto.getName()).build();
+	}
 }

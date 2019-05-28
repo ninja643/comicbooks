@@ -2,8 +2,7 @@ package rs.ac.ni.pmf.marko.comics.server.provider;
 
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
+import rs.ac.ni.pmf.marko.comics.server.exception.*;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public interface ComicBookProvider
 
 	public Long add(ComicBookDTO comicBook) throws DuplicateResourceException;
 
-	public Long update(ComicBookDTO comicBook) throws ResourceNotFoundException;
+	public Long update(Long id, ComicBookDTO comicBook) throws ResourceNotFoundException;
 
 	public void deleteComicBook(Long id) throws ResourceNotFoundException;
 

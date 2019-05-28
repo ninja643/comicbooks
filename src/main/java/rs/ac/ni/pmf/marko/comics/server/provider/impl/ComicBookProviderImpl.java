@@ -10,13 +10,11 @@ import org.springframework.stereotype.Component;
 
 import org.springframework.transaction.annotation.Transactional;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.ComicBookDTO;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.ComicBookConverter;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
-import rs.ac.ni.pmf.marko.comics.server.jpa.ComicBooksRepository;
-import rs.ac.ni.pmf.marko.comics.server.jpa.HeroRepository;
+import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.*;
+import rs.ac.ni.pmf.marko.comics.server.exception.*;
+import rs.ac.ni.pmf.marko.comics.server.jpa.*;
 import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 
 @Component
@@ -25,6 +23,7 @@ public class ComicBookProviderImpl implements ComicBookProvider
 {
 	private final ComicBooksRepository _comicBooksRepository;
 	private final HeroRepository _heroRepository;
+	private final PublisherRepository _publisherRepository;
 
 	private final ComicBookConverter _comicBookConverter;
 
@@ -63,14 +62,31 @@ public class ComicBookProviderImpl implements ComicBookProvider
 	}
 
 	@Override
-	public Long update(final ComicBookDTO dto) throws ResourceNotFoundException
+	public Long update(final Long id, final ComicBookDTO dto) throws ResourceNotFoundException, BadRequestException
 	{
-		final ComicBookEntity entityToUpdate = _comicBooksRepository.findById(dto.getId())
+		final ComicBookEntity entityToUpdate = _comicBooksRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.COMIC_BOOK, "Comic book with id " + dto.getId() + " does not exist"));
 
 		entityToUpdate.setNumber(dto.getNumber());
 		entityToUpdate.setFrontPageUrl(dto.getFrontPageUrl());
 		entityToUpdate.setTitle(dto.getTitle());
+
+		PublisherDTO publisher = dto.getPublisher();
+		if (publisher != null)
+		{
+
+			final PublisherEntity publisherEntity = _publisherRepository.findById(publisher.getId())
+					.orElseThrow(() -> new BadRequestException(ResourceType.COMIC_BOOK, "Unknown publisher " + publisher.getName()));
+
+			entityToUpdate.setPublisher(publisherEntity);
+		}
+
+		if (dto.getHeroes() != null)
+		{
+			dto.getHeroes().forEach(hero -> {
+				final HeroEntity heroEntity = _heroRepository.findById()
+			});
+		}
 
 		return _comicBooksRepository.save(entityToUpdate).getId();
 

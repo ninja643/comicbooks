@@ -10,9 +10,7 @@ import org.springframework.stereotype.Component;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.HeroConverter;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.HeroEntity;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
+import rs.ac.ni.pmf.marko.comics.server.exception.*;
 import rs.ac.ni.pmf.marko.comics.server.jpa.HeroRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
 
@@ -42,11 +40,14 @@ public class HeroProviderImpl implements HeroProvider
 	}
 
 	@Override
-	public HeroEntity add(final HeroEntity heroEntity) throws DuplicateResourceException
+	public Long add(final HeroDTO hero) throws DuplicateResourceException
 	{
+		final HeroEntity heroEntity = _heroConverter.entityFromDto(hero);
+
 		try
 		{
-			return _heroRepository.save(heroEntity);
+			final HeroEntity savedEntity = _heroRepository.save(heroEntity);
+			return savedEntity.getId();
 		} catch (final DataIntegrityViolationException e)
 		{
 			throw new DuplicateResourceException(ResourceType.HERO,
@@ -55,30 +56,25 @@ public class HeroProviderImpl implements HeroProvider
 	}
 
 	@Override
-	public HeroEntity update(final Long id, final HeroEntity heroEntity) throws ResourceNotFoundException
+	public Long update(final Long id, final HeroDTO dto) throws ResourceNotFoundException
 	{
-		throwIfUnknownId(id);
+		final HeroEntity entityToUpdate = _heroRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.HERO, "Hero with id " + id + " does not exist"));
 
-		heroEntity.setId(id);
+		entityToUpdate.setName(dto.getName());
 
-		return _heroRepository.save(heroEntity);
+		return _heroRepository.save(entityToUpdate).getId();
 	}
 
 	@Override
 	public void delete(final Long id) throws ResourceNotFoundException
 	{
-		throwIfUnknownId(id);
-
-		_heroRepository.deleteById(id);
-
-	}
-
-	private void throwIfUnknownId(final Long id) throws ResourceNotFoundException
-	{
 		if (!_heroRepository.existsById(id))
 		{
 			throw new ResourceNotFoundException(ResourceType.HERO, "Hero with id " + id + " does not exist");
 		}
-	}
 
+		_heroRepository.deleteById(id);
+
+	}
 }

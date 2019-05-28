@@ -2,6 +2,7 @@ package rs.ac.ni.pmf.marko.comics.server.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,16 +45,16 @@ public class ComicBooksRestService
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Long update(
-			@PathVariable(name = "id") final Long id,
-			@RequestBody final ComicBookDTO comicBookEntity) throws ResourceNotFoundException, BadRequestException
+			@PathVariable(name = "id", required = true) @NonNull final Long id,
+			@RequestBody final ComicBookDTO comicBook) throws ResourceNotFoundException, BadRequestException
 	{
-		if (comicBookEntity.getId() != null && comicBookEntity.getId() != id)
+		if (comicBook.getId() != null && comicBook.getId() != id)
 		{
 			throw new BadRequestException(ResourceType.COMIC_BOOK, "Comic book id cannot be changed. " +
-					"Do not supply it in the request body");
+					"You should not supply it in the request body");
 		}
 
-		return comicBookProvider.update(comicBookEntity);
+		return comicBookProvider.update(id, comicBook);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
