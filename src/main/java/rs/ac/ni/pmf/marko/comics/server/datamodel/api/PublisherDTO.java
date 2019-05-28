@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 public class PublisherDTO
 {
-	private long id;
-
+	private Long id;
 	private String name;
 }

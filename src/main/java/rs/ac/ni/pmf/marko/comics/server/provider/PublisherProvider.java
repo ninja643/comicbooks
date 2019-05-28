@@ -1,11 +1,10 @@
 package rs.ac.ni.pmf.marko.comics.server.provider;
 
-import java.util.List;
-
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
+
+import java.util.List;
 
 public interface PublisherProvider
 {
@@ -13,10 +12,9 @@ public interface PublisherProvider
 
 	public PublisherDTO get(final Long id) throws ResourceNotFoundException;
 
-	public PublisherEntity add(PublisherEntity publisher) throws DuplicateResourceException;
+	public Long add(PublisherDTO publisher) throws DuplicateResourceException;
 
-	public PublisherEntity update(final Long id, PublisherEntity publisher)
-			throws ResourceNotFoundException, DuplicateResourceException;
+	public Long update(final Long id, PublisherDTO publisher) throws ResourceNotFoundException;
 
 	public void delete(final Long id) throws ResourceNotFoundException;
 }

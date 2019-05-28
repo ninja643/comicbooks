@@ -9,5 +9,4 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan(basePackages = "rs.ac.ni.pmf.marko.comics.server")
 public class ApplicationConfiguration
 {
-
 }

@@ -22,7 +22,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "number", "publisher_id" }) })
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"number", "publisher_id"})})
 @Builder
 public class ComicBookEntity
 {
@@ -34,7 +34,7 @@ public class ComicBookEntity
 	private int version;
 
 	@Column
-	private int number;
+	private Integer number;
 
 	@Column
 	private String title;

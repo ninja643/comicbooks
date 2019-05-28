@@ -5,11 +5,9 @@ import org.springframework.stereotype.Component;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
 
-@Component
-public class ComicBookConverter implements IConverter<ComicBookDTO, ComicBookEntity>
+public class ComicBookConverter
 {
-	@Override
-	public ComicBookDTO dtoFromEntity(final ComicBookEntity comicBookEntity)
+	public static ComicBookDTO dtoFromEntity(final ComicBookEntity comicBookEntity)
 	{
 		return ComicBookDTO.builder()
 				.id(comicBookEntity.getId())
@@ -19,8 +17,7 @@ public class ComicBookConverter implements IConverter<ComicBookDTO, ComicBookEnt
 				.build();
 	}
 
-	@Override
-	public ComicBookEntity entityFromDto(final ComicBookDTO dto)
+	public static ComicBookEntity entityFromDto(final ComicBookDTO dto)
 	{
 		return ComicBookEntity.builder()
 				.id(dto.getId())

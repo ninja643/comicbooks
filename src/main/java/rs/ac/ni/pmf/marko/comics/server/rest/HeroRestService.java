@@ -1,16 +1,14 @@
 package rs.ac.ni.pmf.marko.comics.server.rest;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.*;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.HeroDTO;
-import rs.ac.ni.pmf.marko.comics.server.exception.*;
+import rs.ac.ni.pmf.marko.comics.server.exception.BadRequestException;
+import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
+import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
+import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
 
 @RestController
@@ -18,7 +16,6 @@ import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
 @RequestMapping(value = "/hero")
 public class HeroRestService
 {
-
 	@Autowired
 	HeroProvider heroProvider;
 
@@ -30,7 +27,6 @@ public class HeroRestService
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public HeroDTO getById(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
-
 	{
 		return heroProvider.get(id);
 	}

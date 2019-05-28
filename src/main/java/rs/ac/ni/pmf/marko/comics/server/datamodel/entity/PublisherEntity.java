@@ -2,14 +2,7 @@ package rs.ac.ni.pmf.marko.comics.server.datamodel.entity;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.*;
@@ -25,7 +18,7 @@ public class PublisherEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	@Version
 	private int version;
@@ -33,6 +26,6 @@ public class PublisherEntity
 	@Column(name = "name", length = 200, nullable = false, unique = true)
 	private String name;
 
-	@OneToMany(mappedBy = "publisher")
+	@OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
 	private Set<ComicBookEntity> comicBooks;
 }

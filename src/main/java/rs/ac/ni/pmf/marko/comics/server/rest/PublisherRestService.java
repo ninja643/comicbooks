@@ -1,22 +1,18 @@
 package rs.ac.ni.pmf.marko.comics.server.rest;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.PublisherEntity;
+import rs.ac.ni.pmf.marko.comics.server.exception.BadRequestException;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
+import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.provider.PublisherProvider;
+
+import java.util.List;
 
 @RestController
 @Api
@@ -39,9 +35,7 @@ public class PublisherRestService
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public PublisherEntity add(
-			@ApiParam(value = "Publisher to add", required = true) @RequestBody final PublisherEntity publisher)
-			throws DuplicateResourceException
+	public Long add(@ApiParam(value = "Publisher to add", required = true) @RequestBody final PublisherDTO publisher) throws DuplicateResourceException
 	{
 		return _publisherProvider.add(publisher);
 	}
@@ -53,10 +47,13 @@ public class PublisherRestService
 	}
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public PublisherEntity update(@PathVariable(name = "id") final Long id,
-			@RequestBody final PublisherEntity publisherEntity)
-			throws ResourceNotFoundException, DuplicateResourceException
+	public Long update(@PathVariable(name = "id") final Long id, @RequestBody final PublisherDTO publisher) throws ResourceNotFoundException, BadRequestException
 	{
-		return _publisherProvider.update(id, publisherEntity);
+		if (publisher.getId() != null && publisher.getId() != id)
+		{
+			throw new BadRequestException(ResourceType.PUBLISHER, "Publisher id cannot be changed. " +
+					"You should not supply it in the request body");
+		}
+		return _publisherProvider.update(id, publisher);
 	}
 }

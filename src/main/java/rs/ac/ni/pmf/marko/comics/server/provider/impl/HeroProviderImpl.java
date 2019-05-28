@@ -1,18 +1,19 @@
 package rs.ac.ni.pmf.marko.comics.server.provider.impl;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
-
 import rs.ac.ni.pmf.marko.comics.server.datamodel.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.converter.HeroConverter;
 import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.HeroEntity;
-import rs.ac.ni.pmf.marko.comics.server.exception.*;
+import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
+import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
+import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.jpa.HeroRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class HeroProviderImpl implements HeroProvider
@@ -20,14 +21,11 @@ public class HeroProviderImpl implements HeroProvider
 	@Autowired
 	HeroRepository _heroRepository;
 
-	@Autowired
-	HeroConverter _heroConverter;
-
 	@Override
 	public Iterable<HeroDTO> getAll()
 	{
 		final List<HeroEntity> entities = _heroRepository.findAll();
-		return entities.stream().map(e -> _heroConverter.dtoFromEntity(e)).collect(Collectors.toList());
+		return entities.stream().map(e -> HeroConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -35,14 +33,13 @@ public class HeroProviderImpl implements HeroProvider
 	{
 		final HeroEntity entity = _heroRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException(ResourceType.HERO, "Hero with id: " + id + "doesn't exist"));
-		return _heroConverter.dtoFromEntity(entity);
-
+		return HeroConverter.dtoFromEntity(entity);
 	}
 
 	@Override
 	public Long add(final HeroDTO hero) throws DuplicateResourceException
 	{
-		final HeroEntity heroEntity = _heroConverter.entityFromDto(hero);
+		final HeroEntity heroEntity = HeroConverter.entityFromDto(hero);
 
 		try
 		{
@@ -75,6 +72,5 @@ public class HeroProviderImpl implements HeroProvider
 		}
 
 		_heroRepository.deleteById(id);
-
 	}
 }
