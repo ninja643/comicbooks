@@ -10,6 +10,8 @@ import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.provider.HeroesService;
 import rs.ac.ni.pmf.marko.comics.server.rest.HeroesRestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class HeroesRestControllerImpl implements HeroesRestController
@@ -17,7 +19,7 @@ public class HeroesRestControllerImpl implements HeroesRestController
 	private final HeroesService _heroesService;
 
 	@Override
-	public Iterable<HeroDTO> getAll()
+	public List<HeroDTO> getAll()
 	{
 		return _heroesService.getAll();
 	}

@@ -20,7 +20,7 @@ public class HeroesService
 {
 	private final HeroesRepository _heroesRepository;
 
-	public Iterable<HeroDTO> getAll()
+	public List<HeroDTO> getAll()
 	{
 		final List<HeroEntity> entities = _heroesRepository.findAll();
 		return entities.stream().map(e -> HeroConverter.dtoFromEntity(e)).collect(Collectors.toList());

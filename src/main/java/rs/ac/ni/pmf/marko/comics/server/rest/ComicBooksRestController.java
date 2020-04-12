@@ -14,13 +14,15 @@ import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 
+import java.util.List;
+
 @Api(tags = "Rest operations on comic books")
 @RequestMapping("/comicbooks")
 public interface ComicBooksRestController
 {
 	@ApiOperation(value = "Get all comic books")
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Iterable<ComicBookDTO> getAll();
+	public List<ComicBookDTO> getAll();
 
 	@ApiOperation(value = "Get a comic book by ID", response = ComicBookDTO.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

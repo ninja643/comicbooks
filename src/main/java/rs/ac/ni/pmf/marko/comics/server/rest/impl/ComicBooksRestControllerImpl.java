@@ -10,6 +10,8 @@ import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.provider.ComicBooksService;
 import rs.ac.ni.pmf.marko.comics.server.rest.ComicBooksRestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class ComicBooksRestControllerImpl implements ComicBooksRestController
@@ -17,7 +19,7 @@ public class ComicBooksRestControllerImpl implements ComicBooksRestController
 	private final ComicBooksService _comicBooksService;
 
 	@Override
-	public Iterable<ComicBookDTO> getAll()
+	public List<ComicBookDTO> getAll()
 	{
 		return _comicBooksService.getAll();
 	}

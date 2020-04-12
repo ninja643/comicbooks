@@ -11,12 +11,14 @@ import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
 
+import java.util.List;
+
 @Api
 @RequestMapping(value = "/heroes")
 public interface HeroesRestController
 {
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Iterable<HeroDTO> getAll();
+	public List<HeroDTO> getAll();
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public HeroDTO getById(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException;
