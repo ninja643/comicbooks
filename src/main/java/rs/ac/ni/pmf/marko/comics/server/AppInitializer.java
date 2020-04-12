@@ -26,7 +26,7 @@ public class AppInitializer implements WebApplicationInitializer
 		registration.addMapping("/swagger-resources/configuration/security");
 		registration.addMapping("/swagger-resources");
 		registration.addMapping("/v2/api-docs");
-		registration.addMapping("/services/rest/*");
+		registration.addMapping("/services/rest/v1/*");
 	}
 
 }
