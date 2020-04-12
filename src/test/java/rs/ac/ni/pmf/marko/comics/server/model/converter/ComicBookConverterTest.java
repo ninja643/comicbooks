@@ -1,8 +1,8 @@
-package rs.ac.ni.pmf.marko.comics.server.datamodel.converter;
+package rs.ac.ni.pmf.marko.comics.server.model.converter;
 
 import org.junit.Test;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.api.ComicBookDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.ComicBookEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

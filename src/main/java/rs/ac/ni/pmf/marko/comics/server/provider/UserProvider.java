@@ -2,8 +2,8 @@ package rs.ac.ni.pmf.marko.comics.server.provider;
 
 import org.springframework.data.domain.Page;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.api.UserDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.UserEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.api.UserDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 

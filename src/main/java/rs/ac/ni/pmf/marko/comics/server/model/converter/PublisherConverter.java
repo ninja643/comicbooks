@@ -1,7 +1,7 @@
-package rs.ac.ni.pmf.marko.comics.server.datamodel.converter;
+package rs.ac.ni.pmf.marko.comics.server.model.converter;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.PublisherEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
 
 public class PublisherConverter
 {

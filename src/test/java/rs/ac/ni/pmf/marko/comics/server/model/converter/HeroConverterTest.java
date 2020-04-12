@@ -1,9 +1,9 @@
-package rs.ac.ni.pmf.marko.comics.server.datamodel.converter;
+package rs.ac.ni.pmf.marko.comics.server.model.converter;
 
 import mockit.Injectable;
 import org.junit.Test;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.api.HeroDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.HeroEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
 
 import java.util.Collections;
 

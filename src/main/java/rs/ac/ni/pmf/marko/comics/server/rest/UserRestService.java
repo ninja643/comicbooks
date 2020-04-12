@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.api.UserDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.UserEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.api.UserDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;

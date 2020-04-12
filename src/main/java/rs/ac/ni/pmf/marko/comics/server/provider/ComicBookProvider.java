@@ -1,7 +1,6 @@
 package rs.ac.ni.pmf.marko.comics.server.provider;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.api.ComicBookDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.exception.*;
 
 import java.util.List;

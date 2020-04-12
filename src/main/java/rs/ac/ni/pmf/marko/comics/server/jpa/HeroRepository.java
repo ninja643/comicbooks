@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.HeroEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
 
 @Repository
 public interface HeroRepository extends CrudRepository<HeroEntity, Long>

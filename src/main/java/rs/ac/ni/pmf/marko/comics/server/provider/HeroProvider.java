@@ -1,6 +1,6 @@
 package rs.ac.ni.pmf.marko.comics.server.provider;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.api.HeroDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.exception.*;
 
 public interface HeroProvider

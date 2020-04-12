@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.ComicBookEntity;
 
 @Repository
 public interface ComicBooksRepository extends CrudRepository<ComicBookEntity, Long>, JpaSpecificationExecutor<ComicBookEntity>

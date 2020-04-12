@@ -1,4 +1,4 @@
-package rs.ac.ni.pmf.marko.comics.server.datamodel.api;
+package rs.ac.ni.pmf.marko.comics.server.model.api;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
-public class PublisherDTO
+public class HeroDTO
 {
 	private Long id;
 	private String name;

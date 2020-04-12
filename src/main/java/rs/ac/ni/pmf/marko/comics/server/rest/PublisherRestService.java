@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.api.PublisherDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
 import rs.ac.ni.pmf.marko.comics.server.exception.BadRequestException;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;

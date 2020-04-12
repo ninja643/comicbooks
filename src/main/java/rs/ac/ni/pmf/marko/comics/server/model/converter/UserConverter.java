@@ -1,9 +1,9 @@
-package rs.ac.ni.pmf.marko.comics.server.datamodel.converter;
+package rs.ac.ni.pmf.marko.comics.server.model.converter;
 
 import org.springframework.stereotype.Component;
 
-import rs.ac.ni.pmf.marko.comics.server.datamodel.api.UserDTO;
-import rs.ac.ni.pmf.marko.comics.server.datamodel.entity.UserEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.api.UserDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 
 @Component
 public class UserConverter
