@@ -15,50 +15,24 @@ import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.exception.*;
 import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 
-@RestController
 @Api
 @RequestMapping("/comicbook")
-public class ComicBooksRestController
+public interface ComicBooksRestController
 {
-	@Autowired
-	private ComicBookProvider comicBookProvider;
-
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Iterable<ComicBookDTO> getAll()
-	{
-		return comicBookProvider.getAll();
-	}
+	public Iterable<ComicBookDTO> getAll();
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ComicBookDTO getById(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
-	{
-		return comicBookProvider.get(id);
-	}
+	public ComicBookDTO getById(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException;
 
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Long add(@ApiParam(required = true) @RequestBody final ComicBookDTO comicBook)
-			throws DuplicateResourceException
-	{
-		return comicBookProvider.add(comicBook);
-	}
+	public Long add(@ApiParam(required = true) @RequestBody final ComicBookDTO comicBook) throws DuplicateResourceException;
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Long update(
 			@PathVariable(name = "id", required = true) @NonNull final Long id,
-			@RequestBody final ComicBookDTO comicBook) throws ResourceNotFoundException, BadRequestException
-	{
-		if (comicBook.getId() != null && comicBook.getId() != id)
-		{
-			throw new BadRequestException(ResourceType.COMIC_BOOK, "Comic book id cannot be changed. " +
-					"You should not supply it in the request body");
-		}
-
-		return comicBookProvider.update(id, comicBook);
-	}
+			@RequestBody final ComicBookDTO comicBook) throws ResourceNotFoundException, BadRequestException;
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException
-	{
-		comicBookProvider.deleteComicBook(id);
-	}
+	public void delete(@PathVariable(name = "id") final Long id) throws ResourceNotFoundException;
 }
