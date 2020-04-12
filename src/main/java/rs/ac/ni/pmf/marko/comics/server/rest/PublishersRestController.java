@@ -15,7 +15,7 @@ import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
 import java.util.List;
 
 @Api
-@RequestMapping("/publisher")
+@RequestMapping("/publishers")
 public interface PublishersRestController
 {
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

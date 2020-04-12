@@ -12,7 +12,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
 
 @Api
-@RequestMapping(value = "/hero")
+@RequestMapping(value = "/heroes")
 public interface HeroesRestController
 {
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

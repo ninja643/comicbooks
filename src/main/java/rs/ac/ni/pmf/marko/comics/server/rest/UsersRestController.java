@@ -24,7 +24,7 @@ import rs.ac.ni.pmf.marko.comics.server.provider.UsersService;
 
 //@RestController
 //@Api
-//@RequestMapping(value = "/user")
+//@RequestMapping(value = "/users")
 @RequiredArgsConstructor
 @Deprecated
 /**

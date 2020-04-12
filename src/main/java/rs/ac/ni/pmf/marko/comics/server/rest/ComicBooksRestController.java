@@ -15,7 +15,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 
 @Api(tags = "Rest operations on comic books")
-@RequestMapping("/comicbook")
+@RequestMapping("/comicbooks")
 public interface ComicBooksRestController
 {
 	@ApiOperation(value = "Get all comic books")
