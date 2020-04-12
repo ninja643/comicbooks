@@ -18,7 +18,7 @@ import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 @RestController
 @Api
 @RequestMapping("/comicbook")
-public class ComicBooksRestService
+public class ComicBooksRestController
 {
 	@Autowired
 	private ComicBookProvider comicBookProvider;

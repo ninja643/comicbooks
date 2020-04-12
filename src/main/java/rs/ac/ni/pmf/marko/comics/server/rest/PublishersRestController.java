@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @Api
 @RequestMapping("/publisher")
-public class PublisherRestService
+public class PublishersRestController
 {
 	@Autowired
 	private PublisherProvider _publisherProvider;

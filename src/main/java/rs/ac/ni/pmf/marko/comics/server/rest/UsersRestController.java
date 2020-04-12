@@ -25,7 +25,7 @@ import rs.ac.ni.pmf.marko.comics.server.provider.UserProvider;
 @RestController
 @Api
 @RequestMapping(value = "/user")
-public class UserRestService
+public class UsersRestController
 {
 	@Autowired
 	UserProvider dataProvider;

@@ -14,7 +14,7 @@ import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
 @RestController
 @Api
 @RequestMapping(value = "/hero")
-public class HeroRestService
+public class HeroesRestController
 {
 	@Autowired
 	HeroProvider heroProvider;
