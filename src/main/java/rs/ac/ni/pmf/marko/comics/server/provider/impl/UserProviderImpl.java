@@ -16,7 +16,7 @@ import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
-import rs.ac.ni.pmf.marko.comics.server.jpa.UserRepository;
+import rs.ac.ni.pmf.marko.comics.server.repository.UserRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.UserProvider;
 
 @Component

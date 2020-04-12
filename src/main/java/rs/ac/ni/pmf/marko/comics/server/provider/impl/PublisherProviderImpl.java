@@ -9,7 +9,7 @@ import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
-import rs.ac.ni.pmf.marko.comics.server.jpa.PublisherRepository;
+import rs.ac.ni.pmf.marko.comics.server.repository.PublisherRepository;
 import rs.ac.ni.pmf.marko.comics.server.provider.PublisherProvider;
 
 import java.util.List;

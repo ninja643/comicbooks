@@ -1,4 +1,4 @@
-package rs.ac.ni.pmf.marko.comics.server.jpa;
+package rs.ac.ni.pmf.marko.comics.server.repository;
 
 import java.util.List;
 
