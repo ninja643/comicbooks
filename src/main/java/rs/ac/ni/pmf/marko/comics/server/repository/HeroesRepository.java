@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
 
 @Repository
-public interface PublisherRepository extends CrudRepository<PublisherEntity, Long>
+public interface HeroesRepository extends CrudRepository<HeroEntity, Long>
 {
 	@Override
-	List<PublisherEntity> findAll();
+	List<HeroEntity> findAll();
 }

@@ -21,7 +21,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = {
-		"rs.ac.ni.pmf.marko.comics.server.model",
+		/*"rs.ac.ni.pmf.marko.comics.server.model",*/
 		"rs.ac.ni.pmf.marko.comics.server.repository"})
 @PropertySource(value = "classpath:/application.properties")
 public class PersistenceConfig
@@ -46,7 +46,7 @@ public class PersistenceConfig
 		final LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(dataSource);
 		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-		entityManagerFactoryBean.setPackagesToScan("rs.ac.ni.pmf.marko.comics.server.datamodel");
+		entityManagerFactoryBean.setPackagesToScan("rs.ac.ni.pmf.marko.comics.server.model.entity");
 
 		final Properties jpaProperties = new Properties();
 

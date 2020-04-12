@@ -11,8 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 
-@Repository
-public interface UserRepository extends CrudRepository<UserEntity, Long>
+//@Repository
+@Deprecated
+/**
+ * @deprecated To be rewritten completely
+ */
+public interface UsersRepository extends CrudRepository<UserEntity, Long>
 {
 
 	@Override

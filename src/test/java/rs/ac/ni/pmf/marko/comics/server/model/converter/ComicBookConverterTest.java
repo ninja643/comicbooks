@@ -10,9 +10,9 @@ public class ComicBookConverterTest {
 
     @Test
     public void shouldCreateDtoFromEntity() {
-        final ComicBookEntity comicBookEntity = ComicBookEntity.builder().id(1L).build();
+        final ComicBookEntity comicBookEntity = ComicBookEntity.builder().id(1L).number(123).build();
 
-        final ComicBookDTO expectedDto = ComicBookDTO.builder().id(1L).build();
+        final ComicBookDTO expectedDto = ComicBookDTO.builder().id(1L).number(123).build();
 
         final ComicBookDTO actualDto = ComicBookConverter.dtoFromEntity(comicBookEntity);
 

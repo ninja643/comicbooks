@@ -9,7 +9,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.converter.HeroConverter;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
-import rs.ac.ni.pmf.marko.comics.server.repository.HeroRepository;
+import rs.ac.ni.pmf.marko.comics.server.repository.HeroesRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class HeroesService
 {
-	private final HeroRepository _heroRepository;
+	private final HeroesRepository _heroesRepository;
 
 	public Iterable<HeroDTO> getAll()
 	{
-		final List<HeroEntity> entities = _heroRepository.findAll();
+		final List<HeroEntity> entities = _heroesRepository.findAll();
 		return entities.stream().map(e -> HeroConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
 	public HeroDTO get(final Long id) throws ResourceNotFoundException
 	{
-		final HeroEntity entity = _heroRepository.findById(id).orElseThrow(
+		final HeroEntity entity = _heroesRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException(ResourceType.HERO, "Hero with id: " + id + "doesn't exist"));
 		return HeroConverter.dtoFromEntity(entity);
 	}
@@ -39,7 +39,7 @@ public class HeroesService
 
 		try
 		{
-			final HeroEntity savedEntity = _heroRepository.save(heroEntity);
+			final HeroEntity savedEntity = _heroesRepository.save(heroEntity);
 			return savedEntity.getId();
 		} catch (final DataIntegrityViolationException e)
 		{
@@ -50,21 +50,21 @@ public class HeroesService
 
 	public Long update(final Long id, final HeroDTO dto) throws ResourceNotFoundException
 	{
-		final HeroEntity entityToUpdate = _heroRepository.findById(id)
+		final HeroEntity entityToUpdate = _heroesRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.HERO, "Hero with id " + id + " does not exist"));
 
 		entityToUpdate.setName(dto.getName());
 
-		return _heroRepository.save(entityToUpdate).getId();
+		return _heroesRepository.save(entityToUpdate).getId();
 	}
 
 	public void delete(final Long id) throws ResourceNotFoundException
 	{
-		if (!_heroRepository.existsById(id))
+		if (!_heroesRepository.existsById(id))
 		{
 			throw new ResourceNotFoundException(ResourceType.HERO, "Hero with id " + id + " does not exist");
 		}
 
-		_heroRepository.deleteById(id);
+		_heroesRepository.deleteById(id);
 	}
 }

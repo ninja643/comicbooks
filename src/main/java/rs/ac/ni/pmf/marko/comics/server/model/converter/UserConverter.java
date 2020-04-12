@@ -5,7 +5,11 @@ import org.springframework.stereotype.Component;
 import rs.ac.ni.pmf.marko.comics.server.model.api.UserDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 
-@Component
+//@Component
+@Deprecated
+/**
+ * @deprecated To be completely rewritten
+ */
 public class UserConverter
 {
 	public UserDTO dtoFromEntity(final UserEntity userEntity)

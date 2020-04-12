@@ -22,9 +22,9 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.provider.UsersService;
 
-@RestController
-@Api
-@RequestMapping(value = "/user")
+//@RestController
+//@Api
+//@RequestMapping(value = "/user")
 @RequiredArgsConstructor
 @Deprecated
 /**

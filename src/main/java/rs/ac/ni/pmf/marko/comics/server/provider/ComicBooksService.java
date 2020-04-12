@@ -15,8 +15,8 @@ import rs.ac.ni.pmf.marko.comics.server.model.entity.ComicBookEntity;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.repository.ComicBooksRepository;
-import rs.ac.ni.pmf.marko.comics.server.repository.HeroRepository;
-import rs.ac.ni.pmf.marko.comics.server.repository.PublisherRepository;
+import rs.ac.ni.pmf.marko.comics.server.repository.HeroesRepository;
+import rs.ac.ni.pmf.marko.comics.server.repository.PublishersRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
 public class ComicBooksService
 {
 	private final ComicBooksRepository _comicBooksRepository;
-	private final HeroRepository _heroRepository;
-	private final PublisherRepository _publisherRepository;
+	private final HeroesRepository _heroesRepository;
+	private final PublishersRepository _publishersRepository;
 
 	@Transactional
 	public List<ComicBookDTO> getAll()
@@ -73,7 +73,7 @@ public class ComicBooksService
 		final PublisherDTO publisher = dto.getPublisher();
 		if (publisher != null)
 		{
-			final PublisherEntity publisherEntity = _publisherRepository.findById(publisher.getId())
+			final PublisherEntity publisherEntity = _publishersRepository.findById(publisher.getId())
 					.orElseThrow(() -> new ResourceNotFoundException(ResourceType.COMIC_BOOK, "Unknown publisher " + publisher.getName()));
 
 			entityToUpdate.setPublisher(publisherEntity);
@@ -86,7 +86,7 @@ public class ComicBooksService
 
 			for (final HeroDTO hero : heroes)
 			{
-				final HeroEntity heroEntity = _heroRepository.findById(hero.getId())
+				final HeroEntity heroEntity = _heroesRepository.findById(hero.getId())
 						.orElseThrow(() -> new ResourceNotFoundException(ResourceType.HERO, "Unknown hero " + hero.getName()));
 				heroEntities.add(heroEntity);
 			}

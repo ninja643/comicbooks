@@ -12,12 +12,12 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.UserDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.converter.UserConverter;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
-import rs.ac.ni.pmf.marko.comics.server.repository.UserRepository;
+import rs.ac.ni.pmf.marko.comics.server.repository.UsersRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 @Deprecated
 /**
@@ -25,18 +25,18 @@ import java.util.stream.Collectors;
  */
 public class UsersService
 {
-	private final UserRepository _userRepository;
+	private final UsersRepository _usersRepository;
 	private final UserConverter _userConverter;
 
 	public Iterable<UserDTO> getAll()
 	{
-		final List<UserEntity> entities = _userRepository.findAll();
+		final List<UserEntity> entities = _usersRepository.findAll();
 		return entities.stream().map(e -> _userConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
 	public UserDTO get(final Long id) throws ResourceNotFoundException
 	{
-		final UserEntity entity = _userRepository.findById(id).orElseThrow(
+		final UserEntity entity = _usersRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException(ResourceType.USER, "User with id: " + id + " doesn't exist."));
 
 		return _userConverter.dtoFromEntity(entity);
@@ -45,7 +45,7 @@ public class UsersService
 	public Page<UserEntity> search(final String firstName, final String lastName, final String username,
 								   final String password, final String email, final int pageNumber, final int pageSize)
 	{
-		return _userRepository.getByProperties(firstName, lastName, username, password, email,
+		return _usersRepository.getByProperties(firstName, lastName, username, password, email,
 				PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "firstName"));
 	}
 
@@ -53,7 +53,7 @@ public class UsersService
 	{
 		try
 		{
-			return _userRepository.save(user);
+			return _usersRepository.save(user);
 		} catch (final DataIntegrityViolationException e)
 		{
 			throw new DuplicateResourceException(ResourceType.USER, "User " + user.getId() + " already exists");
@@ -67,19 +67,19 @@ public class UsersService
 
 		userEntity.setId(id);
 
-		return _userRepository.save(userEntity);
+		return _usersRepository.save(userEntity);
 	}
 
 	public void deleteUser(final Long id) throws ResourceNotFoundException
 	{
 		throwIfUnknownId(id);
 
-		_userRepository.deleteById(id);
+		_usersRepository.deleteById(id);
 	}
 
 	private void throwIfUnknownId(final Long id) throws ResourceNotFoundException
 	{
-		if (!_userRepository.existsById(id))
+		if (!_usersRepository.existsById(id))
 		{
 			throw new ResourceNotFoundException(ResourceType.USER, "User with id " + id + " does not exist");
 		}

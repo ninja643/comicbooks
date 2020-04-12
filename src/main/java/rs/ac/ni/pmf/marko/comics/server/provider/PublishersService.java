@@ -9,7 +9,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.converter.PublisherConverter;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
-import rs.ac.ni.pmf.marko.comics.server.repository.PublisherRepository;
+import rs.ac.ni.pmf.marko.comics.server.repository.PublishersRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PublishersService
 {
-	private final PublisherRepository _publisherRepository;
+	private final PublishersRepository _publishersRepository;
 
 	public List<PublisherDTO> getAll()
 	{
-		final List<PublisherEntity> entities = _publisherRepository.findAll();
+		final List<PublisherEntity> entities = _publishersRepository.findAll();
 		return entities.stream().map(e -> PublisherConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
 	public PublisherDTO get(final Long id) throws ResourceNotFoundException
 	{
-		final PublisherEntity publisherEntity = _publisherRepository.findById(id)
+		final PublisherEntity publisherEntity = _publishersRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER,
 						"Publisher with id: " + id + " doesn't exist"));
 
@@ -41,7 +41,7 @@ public class PublishersService
 
 		try
 		{
-			return _publisherRepository.save(entity).getId();
+			return _publishersRepository.save(entity).getId();
 		} catch (final DataIntegrityViolationException e)
 		{
 			throw new DuplicateResourceException(ResourceType.PUBLISHER,
@@ -51,21 +51,21 @@ public class PublishersService
 
 	public Long update(final Long id, final PublisherDTO publisher) throws ResourceNotFoundException
 	{
-		final PublisherEntity entityToUpdate = _publisherRepository.findById(id)
+		final PublisherEntity entityToUpdate = _publishersRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER, "Publisher with id " + id + " does not exist"));
 
 		entityToUpdate.setName(publisher.getName());
 
-		return _publisherRepository.save(entityToUpdate).getId();
+		return _publishersRepository.save(entityToUpdate).getId();
 	}
 
 	public void delete(final Long id) throws ResourceNotFoundException
 	{
-		if (!_publisherRepository.existsById(id))
+		if (!_publishersRepository.existsById(id))
 		{
 			throw new ResourceNotFoundException(ResourceType.PUBLISHER, "Publisher with id " + id + " does not exist");
 		}
 
-		_publisherRepository.deleteById(id);
+		_publishersRepository.deleteById(id);
 	}
 }
