@@ -27,7 +27,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public class PersistenceConfig
 {
 	@Bean(destroyMethod = "close")
-	public DataSource dataSource(final Environment env)
+	public HikariDataSource dataSource(final Environment env) // Returning HikariDataSource instead of just DataSource, so that we can use destroyMethod without warnings
 	{
 		final HikariConfig dataSourceConfig = new HikariConfig();
 		dataSourceConfig.setDriverClassName(env.getRequiredProperty("db.driver"));
