@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.provider.UserProvider;
+import rs.ac.ni.pmf.marko.comics.server.provider.UsersService;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -24,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     DataSource dataSource;
 
     @Autowired
-    UserProvider userProvider;
+	UsersService usersService;
 
     @Bean(name = "passwordEncoder")
     public PasswordEncoder getPasswordEncoder() {
@@ -71,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .email("ninja643@gmail.com")
                 .build();
 
-        userProvider.add(testUser);
+        usersService.add(testUser);
 
     }
 

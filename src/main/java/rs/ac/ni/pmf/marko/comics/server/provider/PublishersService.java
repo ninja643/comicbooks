@@ -1,34 +1,31 @@
-package rs.ac.ni.pmf.marko.comics.server.provider.impl;
+package rs.ac.ni.pmf.marko.comics.server.provider;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Component;
-import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
-import rs.ac.ni.pmf.marko.comics.server.model.converter.PublisherConverter;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
+import org.springframework.stereotype.Service;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
+import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.converter.PublisherConverter;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.repository.PublisherRepository;
-import rs.ac.ni.pmf.marko.comics.server.provider.PublisherProvider;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class PublisherProviderImpl implements PublisherProvider
+@Service
+@RequiredArgsConstructor
+public class PublishersService
 {
-	@Autowired
-	private PublisherRepository _publisherRepository;
+	private final PublisherRepository _publisherRepository;
 
-	@Override
 	public List<PublisherDTO> getAll()
 	{
 		final List<PublisherEntity> entities = _publisherRepository.findAll();
 		return entities.stream().map(e -> PublisherConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
-	@Override
 	public PublisherDTO get(final Long id) throws ResourceNotFoundException
 	{
 		final PublisherEntity publisherEntity = _publisherRepository.findById(id)
@@ -38,7 +35,6 @@ public class PublisherProviderImpl implements PublisherProvider
 		return PublisherConverter.dtoFromEntity(publisherEntity);
 	}
 
-	@Override
 	public Long add(final PublisherDTO publisher) throws DuplicateResourceException
 	{
 		final PublisherEntity entity = PublisherConverter.entityFromDto(publisher);
@@ -49,11 +45,10 @@ public class PublisherProviderImpl implements PublisherProvider
 		} catch (final DataIntegrityViolationException e)
 		{
 			throw new DuplicateResourceException(ResourceType.PUBLISHER,
-					"Publisger '" + publisher.getName() + "' already exists");
+					"Publisher '" + publisher.getName() + "' already exists");
 		}
 	}
 
-	@Override
 	public Long update(final Long id, final PublisherDTO publisher) throws ResourceNotFoundException
 	{
 		final PublisherEntity entityToUpdate = _publisherRepository.findById(id)
@@ -64,7 +59,6 @@ public class PublisherProviderImpl implements PublisherProvider
 		return _publisherRepository.save(entityToUpdate).getId();
 	}
 
-	@Override
 	public void delete(final Long id) throws ResourceNotFoundException
 	{
 		if (!_publisherRepository.existsById(id))
@@ -74,5 +68,4 @@ public class PublisherProviderImpl implements PublisherProvider
 
 		_publisherRepository.deleteById(id);
 	}
-
 }

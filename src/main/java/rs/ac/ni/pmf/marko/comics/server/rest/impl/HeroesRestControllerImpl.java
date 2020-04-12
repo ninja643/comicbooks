@@ -7,31 +7,31 @@ import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
-import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
+import rs.ac.ni.pmf.marko.comics.server.provider.HeroesService;
 import rs.ac.ni.pmf.marko.comics.server.rest.HeroesRestController;
 
 @RestController
 @RequiredArgsConstructor
 public class HeroesRestControllerImpl implements HeroesRestController
 {
-	private final HeroProvider heroesService;
+	private final HeroesService _heroesService;
 
 	@Override
 	public Iterable<HeroDTO> getAll()
 	{
-		return heroesService.getAll();
+		return _heroesService.getAll();
 	}
 
 	@Override
 	public HeroDTO getById(final Long id) throws ResourceNotFoundException
 	{
-		return heroesService.get(id);
+		return _heroesService.get(id);
 	}
 
 	@Override
 	public Long add(final HeroDTO hero) throws DuplicateResourceException
 	{
-		return heroesService.add(hero);
+		return _heroesService.add(hero);
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class HeroesRestControllerImpl implements HeroesRestController
 					"You should not supply it in the request body");
 		}
 
-		return heroesService.update(id, hero);
+		return _heroesService.update(id, hero);
 	}
 
 	@Override
 	public void delete(final Long id) throws ResourceNotFoundException
 	{
-		heroesService.delete(id);
+		_heroesService.delete(id);
 	}
 }

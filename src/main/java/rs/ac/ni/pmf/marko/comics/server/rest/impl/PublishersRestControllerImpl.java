@@ -7,7 +7,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
-import rs.ac.ni.pmf.marko.comics.server.provider.PublisherProvider;
+import rs.ac.ni.pmf.marko.comics.server.provider.PublishersService;
 import rs.ac.ni.pmf.marko.comics.server.rest.PublishersRestController;
 
 import java.util.List;
@@ -16,30 +16,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PublishersRestControllerImpl implements PublishersRestController
 {
-	private final PublisherProvider _publisherProvider;
+	private final PublishersService _publishersService;
 
 	@Override
 	public List<PublisherDTO> getAll()
 	{
-		return _publisherProvider.getAll();
+		return _publishersService.getAll();
 	}
 
 	@Override
 	public PublisherDTO getById(final long id) throws ResourceNotFoundException
 	{
-		return _publisherProvider.get(id);
+		return _publishersService.get(id);
 	}
 
 	@Override
 	public Long add(final PublisherDTO publisher) throws DuplicateResourceException
 	{
-		return _publisherProvider.add(publisher);
+		return _publishersService.add(publisher);
 	}
 
 	@Override
 	public void delete(final long id) throws ResourceNotFoundException
 	{
-		_publisherProvider.delete(id);
+		_publishersService.delete(id);
 	}
 
 	@Override
@@ -50,6 +50,6 @@ public class PublishersRestControllerImpl implements PublishersRestController
 			throw new BadRequestException(ResourceType.PUBLISHER, "Publisher id cannot be changed. " +
 					"You should not supply it in the request body");
 		}
-		return _publisherProvider.update(id, publisher);
+		return _publishersService.update(id, publisher);
 	}
 }

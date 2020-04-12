@@ -1,9 +1,12 @@
-package rs.ac.ni.pmf.marko.comics.server.provider.impl;
+package rs.ac.ni.pmf.marko.comics.server.provider;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
+import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
+import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
@@ -11,28 +14,23 @@ import rs.ac.ni.pmf.marko.comics.server.model.converter.ComicBookConverter;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.ComicBookEntity;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.repository.ComicBooksRepository;
 import rs.ac.ni.pmf.marko.comics.server.repository.HeroRepository;
 import rs.ac.ni.pmf.marko.comics.server.repository.PublisherRepository;
-import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 @RequiredArgsConstructor
-public class ComicBookProviderImpl implements ComicBookProvider
+public class ComicBooksService
 {
 	private final ComicBooksRepository _comicBooksRepository;
 	private final HeroRepository _heroRepository;
 	private final PublisherRepository _publisherRepository;
 
-	@Override
 	@Transactional
 	public List<ComicBookDTO> getAll()
 	{
@@ -40,7 +38,14 @@ public class ComicBookProviderImpl implements ComicBookProvider
 		return entities.stream().map(e -> ComicBookConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
-	@Override
+	public ComicBookDTO get(final Long id) throws ResourceNotFoundException
+	{
+		final ComicBookEntity entity = _comicBooksRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.COMIC_BOOK, ""));
+
+		return ComicBookConverter.dtoFromEntity(entity);
+	}
+
 	public Long add(final ComicBookDTO comicBookDTO) throws DuplicateResourceException
 	{
 		try
@@ -56,17 +61,6 @@ public class ComicBookProviderImpl implements ComicBookProvider
 		}
 	}
 
-	@Override
-	public ComicBookDTO get(final Long id) throws ResourceNotFoundException
-	{
-
-		final ComicBookEntity entity = _comicBooksRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.COMIC_BOOK, ""));
-
-		return ComicBookConverter.dtoFromEntity(entity);
-	}
-
-	@Override
 	public Long update(final Long id, final ComicBookDTO dto) throws ResourceNotFoundException
 	{
 		final ComicBookEntity entityToUpdate = _comicBooksRepository.findById(id)
@@ -104,7 +98,6 @@ public class ComicBookProviderImpl implements ComicBookProvider
 
 	}
 
-	@Override
 	public void deleteComicBook(final Long id) throws ResourceNotFoundException
 	{
 		if (!_comicBooksRepository.existsById(id))

@@ -7,31 +7,31 @@ import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
-import rs.ac.ni.pmf.marko.comics.server.provider.ComicBookProvider;
+import rs.ac.ni.pmf.marko.comics.server.provider.ComicBooksService;
 import rs.ac.ni.pmf.marko.comics.server.rest.ComicBooksRestController;
 
 @RestController
 @RequiredArgsConstructor
 public class ComicBooksRestControllerImpl implements ComicBooksRestController
 {
-	private final ComicBookProvider comicBooksService;
+	private final ComicBooksService _comicBooksService;
 
 	@Override
 	public Iterable<ComicBookDTO> getAll()
 	{
-		return comicBooksService.getAll();
+		return _comicBooksService.getAll();
 	}
 
 	@Override
 	public ComicBookDTO getById(final Long id) throws ResourceNotFoundException
 	{
-		return comicBooksService.get(id);
+		return _comicBooksService.get(id);
 	}
 
 	@Override
 	public Long add(final ComicBookDTO comicBook) throws DuplicateResourceException
 	{
-		return comicBooksService.add(comicBook);
+		return _comicBooksService.add(comicBook);
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class ComicBooksRestControllerImpl implements ComicBooksRestController
 					"You should not supply it in the request body");
 		}
 
-		return comicBooksService.update(id, comicBook);
+		return _comicBooksService.update(id, comicBook);
 	}
 
 	@Override
 	public void delete(final Long id) throws ResourceNotFoundException
 	{
-		comicBooksService.deleteComicBook(id);
+		_comicBooksService.deleteComicBook(id);
 	}
 }

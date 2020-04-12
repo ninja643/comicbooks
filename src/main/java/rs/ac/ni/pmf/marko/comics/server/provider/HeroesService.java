@@ -1,34 +1,31 @@
-package rs.ac.ni.pmf.marko.comics.server.provider.impl;
+package rs.ac.ni.pmf.marko.comics.server.provider;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Component;
-import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
-import rs.ac.ni.pmf.marko.comics.server.model.converter.HeroConverter;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
+import org.springframework.stereotype.Service;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
+import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.converter.HeroConverter;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
 import rs.ac.ni.pmf.marko.comics.server.repository.HeroRepository;
-import rs.ac.ni.pmf.marko.comics.server.provider.HeroProvider;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class HeroProviderImpl implements HeroProvider
+@Service
+@RequiredArgsConstructor
+public class HeroesService
 {
-	@Autowired
-	HeroRepository _heroRepository;
+	private final HeroRepository _heroRepository;
 
-	@Override
 	public Iterable<HeroDTO> getAll()
 	{
 		final List<HeroEntity> entities = _heroRepository.findAll();
 		return entities.stream().map(e -> HeroConverter.dtoFromEntity(e)).collect(Collectors.toList());
 	}
 
-	@Override
 	public HeroDTO get(final Long id) throws ResourceNotFoundException
 	{
 		final HeroEntity entity = _heroRepository.findById(id).orElseThrow(
@@ -36,7 +33,6 @@ public class HeroProviderImpl implements HeroProvider
 		return HeroConverter.dtoFromEntity(entity);
 	}
 
-	@Override
 	public Long add(final HeroDTO hero) throws DuplicateResourceException
 	{
 		final HeroEntity heroEntity = HeroConverter.entityFromDto(hero);
@@ -52,7 +48,6 @@ public class HeroProviderImpl implements HeroProvider
 		}
 	}
 
-	@Override
 	public Long update(final Long id, final HeroDTO dto) throws ResourceNotFoundException
 	{
 		final HeroEntity entityToUpdate = _heroRepository.findById(id)
@@ -63,7 +58,6 @@ public class HeroProviderImpl implements HeroProvider
 		return _heroRepository.save(entityToUpdate).getId();
 	}
 
-	@Override
 	public void delete(final Long id) throws ResourceNotFoundException
 	{
 		if (!_heroRepository.existsById(id))
