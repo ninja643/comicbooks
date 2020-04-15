@@ -1,28 +1,16 @@
 package rs.ac.ni.pmf.marko.comics.server.model.entity;
 
+import lombok.*;
+import rs.ac.ni.pmf.marko.comics.server.model.PaperSize;
+
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.persistence.Version;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import lombok.*;
-
-@XmlRootElement
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"number", "publisher_id"})})
+@Table(name = "comicbooks", uniqueConstraints = {@UniqueConstraint(columnNames = {"number", "publisher_series_id"})})
 @Builder
 public class ComicBookEntity
 {
@@ -39,12 +27,27 @@ public class ComicBookEntity
 	@Column
 	private String title;
 
-	@Column
+	@Column(name = "front_page_url")
 	private String frontPageUrl;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private PublisherEntity publisher;
+	@Builder.Default
+	@Column(name = "is_paperback")
+	private boolean paperback = true;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@Builder.Default
+	@Column(name = "paper_size")
+	private PaperSize paperSize = PaperSize.B5;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "publisher_series_id")
+	private PublishersSeriesEntity publisherSeries;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "comicbooks_heroes",
+			   joinColumns = @JoinColumn(name = "comicbook_id"),
+			   inverseJoinColumns = @JoinColumn(name = "hero_id"))
 	private List<HeroEntity> heroes;
+
+	@OneToMany(mappedBy = "comicBook")
+	private List<UserComicBookEntity> users;
 }

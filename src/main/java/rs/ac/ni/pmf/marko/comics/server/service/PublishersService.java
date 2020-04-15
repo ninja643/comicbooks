@@ -1,4 +1,4 @@
-package rs.ac.ni.pmf.marko.comics.server.provider;
+package rs.ac.ni.pmf.marko.comics.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -7,8 +7,10 @@ import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherSeriesDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.converter.PublisherConverter;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
+import rs.ac.ni.pmf.marko.comics.server.repository.PublisherSeriesRepository;
 import rs.ac.ni.pmf.marko.comics.server.repository.PublishersRepository;
 
 import java.util.List;
@@ -19,11 +21,13 @@ import java.util.stream.Collectors;
 public class PublishersService
 {
 	private final PublishersRepository _publishersRepository;
+	private final PublisherConverter _publisherConverter;
+	private final PublisherSeriesRepository _publisherSeriesRepository;
 
 	public List<PublisherDTO> getAll()
 	{
 		final List<PublisherEntity> entities = _publishersRepository.findAll();
-		return entities.stream().map(e -> PublisherConverter.dtoFromEntity(e)).collect(Collectors.toList());
+		return entities.stream().map(publisherEntity -> _publisherConverter.dtoFromEntity(publisherEntity)).collect(Collectors.toList());
 	}
 
 	public PublisherDTO get(final Long id) throws ResourceNotFoundException
@@ -32,12 +36,17 @@ public class PublishersService
 				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER,
 						"Publisher with id: " + id + " doesn't exist"));
 
-		return PublisherConverter.dtoFromEntity(publisherEntity);
+		return _publisherConverter.dtoFromEntity(publisherEntity);
+	}
+
+	public List<PublisherSeriesDTO> getPublisherSeries(final Long publisherId)
+	{
+		throw new UnsupportedOperationException("Not implemented, yet");
 	}
 
 	public Long add(final PublisherDTO publisher) throws DuplicateResourceException
 	{
-		final PublisherEntity entity = PublisherConverter.entityFromDto(publisher);
+		final PublisherEntity entity = _publisherConverter.entityFromDto(publisher);
 
 		try
 		{

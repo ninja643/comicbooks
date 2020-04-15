@@ -7,7 +7,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
-import rs.ac.ni.pmf.marko.comics.server.provider.ComicBooksService;
+import rs.ac.ni.pmf.marko.comics.server.service.ComicBooksService;
 import rs.ac.ni.pmf.marko.comics.server.rest.ComicBooksRestController;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class ComicBooksRestControllerImpl implements ComicBooksRestController
 	}
 
 	@Override
-	public Long add(final ComicBookDTO comicBook) throws DuplicateResourceException
+	public Long add(final ComicBookDTO comicBook) throws DuplicateResourceException, ResourceNotFoundException
 	{
 		return _comicBooksService.add(comicBook);
 	}

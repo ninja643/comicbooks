@@ -3,13 +3,12 @@ package rs.ac.ni.pmf.marko.comics.server.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-@XmlRootElement
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Table
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "users")
 @Builder
 @Entity
 public class UserEntity
@@ -18,13 +17,10 @@ public class UserEntity
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Version
-	private int version;
-
-	@Column
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column
+	@Column(name = "last_name")
 	private String lastName;
 
 	@Column
@@ -34,11 +30,8 @@ public class UserEntity
 	private String password;
 
 	@Column
-	private String enabled;
-
-	@Column
 	private String email;
 
-	@Column
-	private String role;
+	@OneToMany(mappedBy = "user")
+	private List<UserComicBookEntity> comicBooks;
 }

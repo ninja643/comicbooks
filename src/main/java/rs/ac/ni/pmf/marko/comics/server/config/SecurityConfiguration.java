@@ -7,9 +7,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.provider.UsersService;
+import rs.ac.ni.pmf.marko.comics.server.service.UsersService;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -42,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
          * .password(passwordEncoder.encode("password")).roles("ADMIN", "USER");
          */
 
-        addTestUserToDatabase();
+//        addTestUserToDatabase();
 
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("select username, password, enabled from UserEntity where username=?")
@@ -58,22 +57,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * @throws DuplicateResourceException
      */
 
-    private void addTestUserToDatabase() throws SQLException, DuplicateResourceException {
-
-        final String encodedPassword = passwordEncoder.encode("admin");
-
-        final UserEntity testUser = UserEntity.builder()
-                .version(0)
-                .role("admin")
-                .password(encodedPassword)
-                .firstName("Marko")
-                .lastName("Milosevic")
-                .email("ninja643@gmail.com")
-                .build();
-
-        usersService.add(testUser);
-
-    }
+//    private void addTestUserToDatabase() throws SQLException, DuplicateResourceException {
+//
+//        final String encodedPassword = passwordEncoder.encode("admin");
+//
+//        final UserEntity testUser = UserEntity.builder()
+//                .version(0)
+//                .role("admin")
+//                .password(encodedPassword)
+//                .firstName("Marko")
+//                .lastName("Milosevic")
+//                .email("ninja643@gmail.com")
+//                .build();
+//
+//        usersService.add(testUser);
+//
+//    }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {

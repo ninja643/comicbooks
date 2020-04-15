@@ -23,7 +23,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableJpaRepositories(basePackages = {
 		/*"rs.ac.ni.pmf.marko.comics.server.model",*/
 		"rs.ac.ni.pmf.marko.comics.server.repository"})
-@PropertySource(value = "classpath:/application.properties")
+@PropertySource(value = "classpath:/db.properties")
 public class PersistenceConfig
 {
 	@Bean(destroyMethod = "close")

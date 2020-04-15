@@ -1,19 +1,16 @@
 package rs.ac.ni.pmf.marko.comics.server.model.entity;
 
-import java.util.Set;
-
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import lombok.*;
 
-@XmlRootElement
+import javax.persistence.*;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
-@Table
+@Table(name = "publishers", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class PublisherEntity
 {
 	@Id
@@ -27,5 +24,5 @@ public class PublisherEntity
 	private String name;
 
 	@OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
-	private Set<ComicBookEntity> comicBooks;
+	private Set<PublishersSeriesEntity> series;
 }

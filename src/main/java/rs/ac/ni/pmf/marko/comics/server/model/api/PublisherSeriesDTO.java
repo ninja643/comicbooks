@@ -6,15 +6,10 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
-public class UserDTO
+public class PublisherSeriesDTO
 {
 	private Long id;
-
-	private String firstName;
-
-	private String lastName;
-
-	private String username;
-
-	private String email;
+	private String series;
+	private boolean isDefault;
 }
+

@@ -5,16 +5,17 @@ import org.springframework.stereotype.Component;
 import rs.ac.ni.pmf.marko.comics.server.model.api.UserDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 
-//@Component
-@Deprecated
-/**
- * @deprecated To be completely rewritten
- */
+@Component
 public class UserConverter
 {
 	public UserDTO dtoFromEntity(final UserEntity userEntity)
 	{
-		return new UserDTO(userEntity.getId(), userEntity.getFirstName(), userEntity.getLastName(),
-				userEntity.getUsername(), userEntity.getPassword(), userEntity.getEmail());
+		return UserDTO.builder()
+				.id(userEntity.getId())
+				.firstName(userEntity.getFirstName())
+				.lastName(userEntity.getLastName())
+				.username(userEntity.getUsername())
+				.email(userEntity.getEmail())
+				.build();
 	}
 }

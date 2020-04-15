@@ -12,15 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.Api;
 import rs.ac.ni.pmf.marko.comics.server.model.api.UserDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
-import rs.ac.ni.pmf.marko.comics.server.provider.UsersService;
+import rs.ac.ni.pmf.marko.comics.server.service.UsersService;
 
 //@RestController
 //@Api
@@ -44,11 +42,11 @@ public class UsersRestController
 	@RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 
 	public Iterable<UserEntity> search(@RequestParam(name = "firstName", required = false) final String firstName,
-			@RequestParam(name = "lastName", required = false) final String lastName,
-			@RequestParam(name = "username", required = false) final String username,
-			@RequestParam(name = "password", required = false) final String password,
-			@RequestParam(name = "email", required = false) final String email,
-			@RequestParam(name = "page") final int pageNumber, @RequestParam(name = "pageSize") final int pageSize)
+									   @RequestParam(name = "lastName", required = false) final String lastName,
+									   @RequestParam(name = "username", required = false) final String username,
+									   @RequestParam(name = "password", required = false) final String password,
+									   @RequestParam(name = "email", required = false) final String email,
+									   @RequestParam(name = "page") final int pageNumber, @RequestParam(name = "pageSize") final int pageSize)
 	{
 		return _usersService.search(firstName, lastName, username, password, email, pageNumber, pageSize);
 	}
@@ -66,7 +64,10 @@ public class UsersRestController
 		return _usersService.add(user);
 	}
 
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/update/{id}",
+					method = RequestMethod.PUT,
+					produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+					consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public UserEntity update(@PathVariable(name = "id") final Long id, @RequestBody final UserEntity userEntity)
 			throws ResourceNotFoundException
 
@@ -105,7 +106,6 @@ public class UsersRestController
 	 *
 	 * @param authentication
 	 * @throws ResourceNotFoundException
-	 *
 	 */
 
 	@RequestMapping(value = "/loggedInUsername", method = RequestMethod.GET)

@@ -1,4 +1,4 @@
-package rs.ac.ni.pmf.marko.comics.server.provider;
+package rs.ac.ni.pmf.marko.comics.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,23 +19,24 @@ import java.util.stream.Collectors;
 public class HeroesService
 {
 	private final HeroesRepository _heroesRepository;
+	private final HeroConverter _heroConverter;
 
 	public List<HeroDTO> getAll()
 	{
 		final List<HeroEntity> entities = _heroesRepository.findAll();
-		return entities.stream().map(e -> HeroConverter.dtoFromEntity(e)).collect(Collectors.toList());
+		return entities.stream().map(heroEntity -> _heroConverter.dtoFromEntity(heroEntity)).collect(Collectors.toList());
 	}
 
 	public HeroDTO get(final Long id) throws ResourceNotFoundException
 	{
 		final HeroEntity entity = _heroesRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException(ResourceType.HERO, "Hero with id: " + id + "doesn't exist"));
-		return HeroConverter.dtoFromEntity(entity);
+		return _heroConverter.dtoFromEntity(entity);
 	}
 
 	public Long add(final HeroDTO hero) throws DuplicateResourceException
 	{
-		final HeroEntity heroEntity = HeroConverter.entityFromDto(hero);
+		final HeroEntity heroEntity = _heroConverter.entityFromDto(hero);
 
 		try
 		{
