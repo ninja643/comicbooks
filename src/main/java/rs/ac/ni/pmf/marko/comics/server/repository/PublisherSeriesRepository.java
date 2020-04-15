@@ -7,4 +7,5 @@ import java.util.stream.Stream;
 
 public interface PublisherSeriesRepository extends CrudRepository<PublishersSeriesEntity, Long>
 {
+	Stream<PublishersSeriesEntity> findAllByPublisherId(final long publisherId);
 }

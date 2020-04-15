@@ -7,6 +7,7 @@ import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
+import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherSeriesDTO;
 import rs.ac.ni.pmf.marko.comics.server.service.PublishersService;
 import rs.ac.ni.pmf.marko.comics.server.rest.PublishersRestController;
 
@@ -52,4 +53,37 @@ public class PublishersRestControllerImpl implements PublishersRestController
 		}
 		return _publishersService.update(id, publisher);
 	}
+
+	@Override
+	public List<PublisherSeriesDTO> getPublisherSeries(final long publisherId)
+	{
+		return _publishersService.getPublisherSeries(publisherId);
+	}
+
+	@Override
+	public Long createSeries(final long publisherId, final PublisherSeriesDTO publisherSeriesDTO) throws ResourceNotFoundException
+	{
+		return _publishersService.createSeries(publisherId, publisherSeriesDTO);
+	}
+
+	@Override
+	public void updateSeries(final long publisherId, final Long seriesId, final PublisherSeriesDTO publisherSeriesDTO)
+			throws ResourceNotFoundException, BadRequestException
+	{
+		_publishersService.updateSeries(publisherId, seriesId, publisherSeriesDTO);
+	}
+
+	@Override
+	public void setAsDefaultSeries(final long publisherId, final Long seriesId) throws ResourceNotFoundException, BadRequestException
+	{
+		_publishersService.setAsDefaultSeries(publisherId, seriesId);
+	}
+
+	@Override
+	public void deleteSeries(final long publisherId, final Long seriesId) throws ResourceNotFoundException, BadRequestException
+	{
+		_publishersService.deleteSeries(publisherId, seriesId);
+	}
+
+
 }

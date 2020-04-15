@@ -10,6 +10,6 @@ public class PublisherSeriesDTO
 {
 	private Long id;
 	private String series;
-	private boolean isDefault;
+	private boolean defaultSeries;
 }
 

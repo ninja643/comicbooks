@@ -45,14 +45,14 @@ public final class TestData
 			.id(1L)
 			.publisher(VC)
 			.series("Standard")
-			.isDefault(true)
+			.defaultSeries(true)
 			.build();
 
 	public static final PublishersSeriesEntity VC_SPECIJAL = PublishersSeriesEntity.builder()
 			.id(2L)
 			.publisher(VC)
 			.series("Specijal")
-			.isDefault(false)
+			.defaultSeries(false)
 			.build();
 
 	public static final PublishersSeriesEntity VC_COLOR = PublishersSeriesEntity.builder()
@@ -65,7 +65,7 @@ public final class TestData
 			.id(4L)
 			.publisher(ZS)
 			.series("Standard")
-			.isDefault(true)
+			.defaultSeries(true)
 			.build();
 
 	// ============================================================================

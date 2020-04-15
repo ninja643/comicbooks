@@ -3,7 +3,7 @@ package rs.ac.ni.pmf.marko.comics.server.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -24,5 +24,5 @@ public class PublisherEntity
 	private String name;
 
 	@OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
-	private Set<PublishersSeriesEntity> series;
+	private List<PublishersSeriesEntity> series;
 }
