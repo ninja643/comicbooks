@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.ComicBookEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.PublishersSeriesEntity;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,7 +38,7 @@ public class ComicBookConverter
 				.build();
 	}
 
-	public ComicBookEntity entityFromDto(final ComicBookDTO dto, final PublishersSeriesEntity publisherSeries)
+	public ComicBookEntity entityFromDto(final ComicBookDTO dto, final PublishersSeriesEntity publisherSeries, final List<HeroEntity> heroes)
 	{
 		return ComicBookEntity.builder()
 				.id(dto.getId())
@@ -46,6 +48,7 @@ public class ComicBookConverter
 				.paperback(dto.isPaperback())
 				.paperSize(dto.getPaperSize())
 				.publisherSeries(publisherSeries)
+				.heroes(heroes)
 				.build();
 	}
 }

@@ -8,7 +8,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "publishers_series", uniqueConstraints = @UniqueConstraint(columnNames = {"series"}))
+@Table(name = "publishers_series", uniqueConstraints = @UniqueConstraint(columnNames = {"publisher_id", "series"}))
 @Builder
 public class PublishersSeriesEntity
 {

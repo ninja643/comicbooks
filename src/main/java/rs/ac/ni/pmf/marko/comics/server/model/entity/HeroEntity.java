@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
-@Table(name = "heroes")
+@Table(name = "heroes", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class HeroEntity
 {
 	@Id

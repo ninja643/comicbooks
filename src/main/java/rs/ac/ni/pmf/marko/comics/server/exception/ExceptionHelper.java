@@ -16,4 +16,9 @@ public final class ExceptionHelper
 	{
 		return new DuplicateResourceException(ResourceType.PUBLISHER, "Publisher '" + name + "' already exists");
 	}
+
+	public static ResourceNotFoundException heroNotFound(final Long id)
+	{
+		return new ResourceNotFoundException(ResourceType.HERO, "Hero with id '" + id + "' not found");
+	}
 }

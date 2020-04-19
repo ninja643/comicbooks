@@ -1,25 +1,22 @@
 package rs.ac.ni.pmf.marko.comics.server.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
+import rs.ac.ni.pmf.marko.comics.server.exception.ExceptionHelper;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
-import rs.ac.ni.pmf.marko.comics.server.model.api.PublisherDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.converter.ComicBookConverter;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.ComicBookEntity;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.PublisherEntity;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.PublishersSeriesEntity;
 import rs.ac.ni.pmf.marko.comics.server.repository.ComicBooksRepository;
 import rs.ac.ni.pmf.marko.comics.server.repository.HeroesRepository;
 import rs.ac.ni.pmf.marko.comics.server.repository.PublisherSeriesRepository;
 import rs.ac.ni.pmf.marko.comics.server.repository.PublishersRepository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -51,22 +48,27 @@ public class ComicBooksService
 		return _comicBooksConverter.dtoFromEntity(entity);
 	}
 
-	public Long add(final ComicBookDTO comicBookDTO) throws DuplicateResourceException, ResourceNotFoundException
+	@Transactional
+	public Long add(final ComicBookDTO comicBookDTO) throws ResourceNotFoundException
 	{
-		try
-		{
-			final PublishersSeriesEntity publisherSeriesEntity = _publisherServiceRepository.findById(comicBookDTO.getSeriesId())
-					.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER, "Cannot find series '" + comicBookDTO.getSeriesId() + "'"));
-			final ComicBookEntity comicBookEntity = _comicBooksConverter.entityFromDto(comicBookDTO, publisherSeriesEntity);
-			final ComicBookEntity savedEntity = _comicBooksRepository.save(comicBookEntity);
+		final PublishersSeriesEntity publisherSeriesEntity = _publisherServiceRepository.findById(comicBookDTO.getSeriesId())
+				.orElseThrow(() -> new ResourceNotFoundException(ResourceType.PUBLISHER, "Cannot find series '" + comicBookDTO.getSeriesId() + "'"));
 
-			return savedEntity.getId();
-		}
-		catch (final DataIntegrityViolationException e)
+		final List<HeroEntity> heroEntities = new ArrayList<>();
+
+		if (comicBookDTO.getHeroes() != null)
 		{
-			throw new DuplicateResourceException(ResourceType.COMIC_BOOK,
-												 "Comic book with id: " + comicBookDTO.getId() + "already exists");
+			for (final HeroDTO heroDTO : comicBookDTO.getHeroes())
+			{
+				heroEntities.add(_heroesRepository.findById(heroDTO.getId()).orElseThrow(() -> ExceptionHelper.heroNotFound(heroDTO.getId())));
+			}
 		}
+
+		final ComicBookEntity comicBookEntity = _comicBooksConverter.entityFromDto(comicBookDTO, publisherSeriesEntity, heroEntities);
+
+		final ComicBookEntity savedEntity = _comicBooksRepository.save(comicBookEntity);
+
+		return savedEntity.getId();
 	}
 
 	public Long update(final Long id, final ComicBookDTO dto) throws ResourceNotFoundException
