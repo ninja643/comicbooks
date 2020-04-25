@@ -19,7 +19,7 @@ public class AppInitializer implements WebApplicationInitializer
 		context.register(ApplicationConfiguration.class);
 
 		final ServletRegistration.Dynamic registration = servletContext.addServlet("dispatcher",
-				new DispatcherServlet(context));
+																				   new DispatcherServlet(context));
 		registration.setLoadOnStartup(1);
 
 		registration.addMapping("/swagger-resources/configuration/ui");

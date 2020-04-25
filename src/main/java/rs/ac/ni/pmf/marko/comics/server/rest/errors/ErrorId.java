@@ -3,8 +3,6 @@ package rs.ac.ni.pmf.marko.comics.server.rest.errors;
 import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
 import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
 
-import javax.persistence.PersistenceException;
-
 public enum ErrorId
 {
 	PUBLISHER_ALREADY_EXISTS,
@@ -53,6 +51,6 @@ public enum ErrorId
 				break;
 		}
 
-		return  GENERAL_ERROR;
+		return GENERAL_ERROR;
 	}
 }

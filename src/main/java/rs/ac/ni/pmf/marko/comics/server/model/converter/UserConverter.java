@@ -1,7 +1,6 @@
 package rs.ac.ni.pmf.marko.comics.server.model.converter;
 
 import org.springframework.stereotype.Component;
-
 import rs.ac.ni.pmf.marko.comics.server.model.api.UserDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
 

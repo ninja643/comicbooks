@@ -2,12 +2,8 @@ package rs.ac.ni.pmf.marko.comics.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
+import org.springframework.data.domain.*;
+import rs.ac.ni.pmf.marko.comics.server.exception.*;
 import rs.ac.ni.pmf.marko.comics.server.model.api.UserDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.converter.UserConverter;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.UserEntity;
@@ -45,7 +41,7 @@ public class UsersService
 								   final String password, final String email, final int pageNumber, final int pageSize)
 	{
 		return _usersRepository.getByProperties(firstName, lastName, username, password, email,
-				PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "firstName"));
+												PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "firstName"));
 	}
 
 	public UserEntity add(final UserEntity user) throws DuplicateResourceException
@@ -53,7 +49,8 @@ public class UsersService
 		try
 		{
 			return _usersRepository.save(user);
-		} catch (final DataIntegrityViolationException e)
+		}
+		catch (final DataIntegrityViolationException e)
 		{
 			throw new DuplicateResourceException(ResourceType.USER, "User " + user.getId() + " already exists");
 		}

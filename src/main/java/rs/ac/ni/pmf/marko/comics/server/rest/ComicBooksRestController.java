@@ -1,15 +1,11 @@
 package rs.ac.ni.pmf.marko.comics.server.rest;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.ni.pmf.marko.comics.server.exception.BadRequestException;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
+import rs.ac.ni.pmf.marko.comics.server.exception.*;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 
 import java.util.List;

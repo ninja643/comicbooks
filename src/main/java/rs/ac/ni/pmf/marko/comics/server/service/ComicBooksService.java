@@ -2,24 +2,15 @@ package rs.ac.ni.pmf.marko.comics.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import rs.ac.ni.pmf.marko.comics.server.exception.ExceptionHelper;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
+import rs.ac.ni.pmf.marko.comics.server.exception.*;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.converter.ComicBookConverter;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.ComicBookEntity;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.PublishersSeriesEntity;
-import rs.ac.ni.pmf.marko.comics.server.repository.ComicBooksRepository;
-import rs.ac.ni.pmf.marko.comics.server.repository.HeroesRepository;
-import rs.ac.ni.pmf.marko.comics.server.repository.PublisherSeriesRepository;
-import rs.ac.ni.pmf.marko.comics.server.repository.PublishersRepository;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.*;
+import rs.ac.ni.pmf.marko.comics.server.repository.*;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service

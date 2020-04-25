@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import rs.ac.ni.pmf.marko.comics.server.model.api.ComicBookDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.ComicBookEntity;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
-import rs.ac.ni.pmf.marko.comics.server.model.entity.PublishersSeriesEntity;
+import rs.ac.ni.pmf.marko.comics.server.model.entity.*;
 
 import java.util.List;
 import java.util.Set;

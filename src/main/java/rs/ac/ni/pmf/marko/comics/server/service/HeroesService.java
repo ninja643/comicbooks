@@ -3,9 +3,7 @@ package rs.ac.ni.pmf.marko.comics.server.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import rs.ac.ni.pmf.marko.comics.server.exception.DuplicateResourceException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceNotFoundException;
-import rs.ac.ni.pmf.marko.comics.server.exception.ResourceType;
+import rs.ac.ni.pmf.marko.comics.server.exception.*;
 import rs.ac.ni.pmf.marko.comics.server.model.api.HeroDTO;
 import rs.ac.ni.pmf.marko.comics.server.model.converter.HeroConverter;
 import rs.ac.ni.pmf.marko.comics.server.model.entity.HeroEntity;
@@ -42,10 +40,11 @@ public class HeroesService
 		{
 			final HeroEntity savedEntity = _heroesRepository.save(heroEntity);
 			return savedEntity.getId();
-		} catch (final DataIntegrityViolationException e)
+		}
+		catch (final DataIntegrityViolationException e)
 		{
 			throw new DuplicateResourceException(ResourceType.HERO,
-					"Hero with id: " + heroEntity.getId() + " already exists");
+												 "Hero with id: " + heroEntity.getId() + " already exists");
 		}
 	}
 

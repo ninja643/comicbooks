@@ -14,48 +14,51 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 //@EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter
+{
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
-    @Autowired
-    DataSource dataSource;
+	@Autowired
+	DataSource dataSource;
 
-    @Autowired
+	@Autowired
 	UsersService usersService;
 
-    @Bean(name = "passwordEncoder")
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean(name = "passwordEncoder")
+	public PasswordEncoder getPasswordEncoder()
+	{
+		return new BCryptPasswordEncoder();
+	}
 
-    public static final String[] PUBLIC_MATCHERS = {"/logout/**", "/login/**", "/swagger-ui.html"};
+	public static final String[] PUBLIC_MATCHERS = {"/logout/**", "/login/**", "/swagger-ui.html"};
 
-    @Autowired
-    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
+	@Autowired
+	public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception
+	{
 
-        /*
-         * auth.inMemoryAuthentication().passwordEncoder(passwordEncoder).
-         * withUser("user")
-         * .password(passwordEncoder.encode("password")).roles("ADMIN", "USER");
-         */
+		/*
+		 * auth.inMemoryAuthentication().passwordEncoder(passwordEncoder).
+		 * withUser("user")
+		 * .password(passwordEncoder.encode("password")).roles("ADMIN", "USER");
+		 */
 
 //        addTestUserToDatabase();
 
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, enabled from UserEntity where username=?")
-                .authoritiesByUsernameQuery("select username, role from UserEntity where username=?")
-                .passwordEncoder(passwordEncoder);
+		auth.jdbcAuthentication().dataSource(dataSource)
+				.usersByUsernameQuery("select username, password, enabled from UserEntity where username=?")
+				.authoritiesByUsernameQuery("select username, role from UserEntity where username=?")
+				.passwordEncoder(passwordEncoder);
 
-    }
+	}
 
-    /**
-     * Adds test user with admin privilegies, username=admin, password=admin
-     *
-     * @throws SQLException
-     * @throws DuplicateResourceException
-     */
+	/**
+	 * Adds test user with admin privilegies, username=admin, password=admin
+	 *
+	 * @throws SQLException
+	 * @throws DuplicateResourceException
+	 */
 
 //    private void addTestUserToDatabase() throws SQLException, DuplicateResourceException {
 //
@@ -73,15 +76,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        usersService.add(testUser);
 //
 //    }
+	@Override
+	protected void configure(final HttpSecurity http) throws Exception
+	{
 
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().
 
-        http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().
+				antMatchers("/services/rest/**").hasRole("ADMIN").anyRequest().authenticated().and().formLogin().and()
+				.csrf().disable();
 
-                antMatchers("/services/rest/**").hasRole("ADMIN").anyRequest().authenticated().and().formLogin().and()
-                .csrf().disable();
-
-    }
+	}
 
 }
