@@ -13,7 +13,7 @@
         <spring.version>5.2.3.RELEASE</spring.version>
         <spring.data.version>2.1.8.RELEASE</spring.data.version>
         <slf4j.version>1.7.1</slf4j.version>
-        <jackson.version>2.9.6</jackson.version>
+        <jackson.version>2.11.0</jackson.version>
         <swagger.version>2.9.2</swagger.version>
         <jmockit.version>1.45</jmockit.version>
     </properties>
